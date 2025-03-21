@@ -108,7 +108,6 @@ namespace BasicFacebookFeatures.CustomControls
         {
             base.OnPaint(pe);
             Graphics graph = pe.Graphics;
-            graph.SmoothingMode = SmoothingMode.AntiAlias;
             Rectangle rectContourSmooth = Rectangle.Inflate(this.ClientRectangle, 0, 0);
             Rectangle rectBorder = Rectangle.Inflate(rectContourSmooth, 0, 0);
             int smoothSize = m_BorderSize > 0 ? m_BorderSize * 3 : 1;
@@ -120,6 +119,8 @@ namespace BasicFacebookFeatures.CustomControls
             GraphicsPath pathRegion = new GraphicsPath();
             Pen penSmooth = new Pen(this.Parent.BackColor, smoothSize);
             Pen penBorder = new Pen(borderGColor, m_BorderSize);
+
+            graph.SmoothingMode = SmoothingMode.AntiAlias;
 
             try
             {

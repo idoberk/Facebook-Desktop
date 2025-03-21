@@ -83,11 +83,20 @@
     <Compile Include="CustomControls\CustomTabControl.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="CustomControls\RoundedButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="CustomControls\TitledListBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="CustomControls\TitledListBox.Designer.cs">
       <DependentUpon>TitledListBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormLogin.Designer.cs">
+      <DependentUpon>FormLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormMain.cs">
       <SubType>Form</SubType>
@@ -99,6 +108,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CustomControls\TitledListBox.resx">
       <DependentUpon>TitledListBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormLogin.resx">
+      <DependentUpon>FormLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>

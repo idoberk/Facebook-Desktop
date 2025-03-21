@@ -36,18 +36,15 @@ namespace BasicFacebookFeatures
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.tabControl1 = new BasicFacebookFeatures.CustomControls.CustomTabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.labelUserName = new System.Windows.Forms.Label();
             this.profilePictureBox = new BasicFacebookFeatures.CustomControls.CircularPictureBox();
-            this.textBoxAppID = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.buttonLogout = new System.Windows.Forms.Button();
-            this.buttonLogin = new System.Windows.Forms.Button();
+            this.labelUserName = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.pictureBoxPage2 = new System.Windows.Forms.PictureBox();
             this.pictureBoxPage1 = new System.Windows.Forms.PictureBox();
             this.labelPage2 = new System.Windows.Forms.Label();
             this.labelPage1 = new System.Windows.Forms.Label();
+            this.buttonLogout = new BasicFacebookFeatures.CustomControls.RoundedButton();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.profilePictureBox)).BeginInit();
@@ -72,7 +69,6 @@ namespace BasicFacebookFeatures
             this.tabControl1.ImageList = this.imageList1;
             this.tabControl1.ItemSize = new System.Drawing.Size(60, 27);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.ShowToolTips = true;
@@ -81,13 +77,11 @@ namespace BasicFacebookFeatures
             // 
             // tabPage1
             // 
+            this.tabPage1.BackColor = System.Drawing.Color.Transparent;
             this.tabPage1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tabPage1.Controls.Add(this.buttonLogout);
             this.tabPage1.Controls.Add(this.profilePictureBox);
             this.tabPage1.Controls.Add(this.labelUserName);
-            this.tabPage1.Controls.Add(this.textBoxAppID);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.buttonLogout);
-            this.tabPage1.Controls.Add(this.buttonLogin);
             this.tabPage1.Controls.Add(this.pictureBox1);
             this.tabPage1.ImageIndex = 0;
             this.tabPage1.Location = new System.Drawing.Point(4, 31);
@@ -96,19 +90,6 @@ namespace BasicFacebookFeatures
             this.tabPage1.Size = new System.Drawing.Size(793, 662);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.ToolTipText = "Profile Page";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // labelUserName
-            // 
-            this.labelUserName.AutoSize = true;
-            this.labelUserName.Font = new System.Drawing.Font("Arial", 18F);
-            this.labelUserName.Location = new System.Drawing.Point(471, 289);
-            this.labelUserName.Name = "labelUserName";
-            this.labelUserName.Size = new System.Drawing.Size(184, 27);
-            this.labelUserName.TabIndex = 59;
-            this.labelUserName.Text = "User name here";
-            this.labelUserName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.labelUserName.Visible = false;
             // 
             // profilePictureBox
             // 
@@ -124,53 +105,17 @@ namespace BasicFacebookFeatures
             this.profilePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.profilePictureBox.TabIndex = 58;
             this.profilePictureBox.TabStop = false;
-            this.profilePictureBox.Visible = false;
             // 
-            // textBoxAppID
+            // labelUserName
             // 
-            this.textBoxAppID.Location = new System.Drawing.Point(228, 581);
-            this.textBoxAppID.Name = "textBoxAppID";
-            this.textBoxAppID.ReadOnly = true;
-            this.textBoxAppID.Size = new System.Drawing.Size(237, 24);
-            this.textBoxAppID.TabIndex = 54;
-            this.textBoxAppID.Text = "668236632596331";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(225, 536);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(559, 36);
-            this.label1.TabIndex = 53;
-            this.label1.Text = "This is the AppID of \"Design Patterns App 2.4\". The grader will use it to test yo" +
-    "ur app.\r\nType here your own AppID to test it:";
-            // 
-            // buttonLogout
-            // 
-            this.buttonLogout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonLogout.Enabled = false;
-            this.buttonLogout.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.buttonLogout.Location = new System.Drawing.Point(18, 621);
-            this.buttonLogout.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonLogout.MinimumSize = new System.Drawing.Size(268, 32);
-            this.buttonLogout.Name = "buttonLogout";
-            this.buttonLogout.Size = new System.Drawing.Size(268, 32);
-            this.buttonLogout.TabIndex = 52;
-            this.buttonLogout.Text = "Logout";
-            this.buttonLogout.UseVisualStyleBackColor = true;
-            this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
-            // 
-            // buttonLogin
-            // 
-            this.buttonLogin.Location = new System.Drawing.Point(18, 489);
-            this.buttonLogin.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonLogin.Name = "buttonLogin";
-            this.buttonLogin.Size = new System.Drawing.Size(268, 32);
-            this.buttonLogin.TabIndex = 36;
-            this.buttonLogin.Text = "Login";
-            this.buttonLogin.UseVisualStyleBackColor = true;
-            this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
+            this.labelUserName.AutoSize = true;
+            this.labelUserName.Font = new System.Drawing.Font("Arial", 18F);
+            this.labelUserName.Location = new System.Drawing.Point(471, 289);
+            this.labelUserName.Name = "labelUserName";
+            this.labelUserName.Size = new System.Drawing.Size(184, 27);
+            this.labelUserName.TabIndex = 59;
+            this.labelUserName.Text = "User name here";
+            this.labelUserName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // pictureBox1
             // 
@@ -181,7 +126,6 @@ namespace BasicFacebookFeatures
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox1.TabIndex = 57;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.Visible = false;
             // 
             // tabPage2
             // 
@@ -231,11 +175,33 @@ namespace BasicFacebookFeatures
             this.labelPage1.TabIndex = 0;
             this.labelPage1.Text = "Page A";
             // 
+            // buttonLogout
+            // 
+            this.buttonLogout.BackColor = System.Drawing.Color.Red;
+            this.buttonLogout.BackgroundColor = System.Drawing.Color.Red;
+            this.buttonLogout.BorderColor = System.Drawing.Color.Empty;
+            this.buttonLogout.BorderRadius = 25;
+            this.buttonLogout.BorderSize = 0;
+            this.buttonLogout.FlatAppearance.BorderSize = 0;
+            this.buttonLogout.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Brown;
+            this.buttonLogout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Firebrick;
+            this.buttonLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonLogout.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonLogout.ForeColor = System.Drawing.Color.White;
+            this.buttonLogout.Location = new System.Drawing.Point(8, 615);
+            this.buttonLogout.Name = "buttonLogout";
+            this.buttonLogout.Size = new System.Drawing.Size(177, 40);
+            this.buttonLogout.TabIndex = 62;
+            this.buttonLogout.Text = "Logout";
+            this.buttonLogout.TextColor = System.Drawing.Color.White;
+            this.buttonLogout.UseVisualStyleBackColor = false;
+            this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(801, 697);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -260,14 +226,9 @@ namespace BasicFacebookFeatures
         }
 
 		#endregion
-
-		private System.Windows.Forms.Button buttonLogin;
-		private System.Windows.Forms.Button buttonLogout;
-		private System.Windows.Forms.Label label1;
 		private CustomTabControl tabControl1;
 		private System.Windows.Forms.TabPage tabPage1;
 		private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TextBox textBoxAppID;
         private System.Windows.Forms.PictureBox pictureBox1;
         private CircularPictureBox profilePictureBox;
         private System.Windows.Forms.ImageList imageList1;
@@ -276,6 +237,7 @@ namespace BasicFacebookFeatures
         private System.Windows.Forms.Label labelPage2;
         private System.Windows.Forms.Label labelPage1;
         private System.Windows.Forms.Label labelUserName;
+        private RoundedButton buttonLogout;
     }
 }
 
