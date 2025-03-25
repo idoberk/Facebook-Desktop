@@ -77,11 +77,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Backend\HigherLowerGame.cs" />
     <Compile Include="CustomControls\CircularPictureBox.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CustomControls\CustomTabControl.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomControls\HigherLowerGameControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\HigherLowerGameControl.Designer.cs">
+      <DependentUpon>HigherLowerGameControl.cs</DependentUpon>
     </Compile>
     <Compile Include="CustomControls\RoundedButton.cs">
       <SubType>Component</SubType>
@@ -106,6 +113,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CustomControls\HigherLowerGameControl.resx">
+      <DependentUpon>HigherLowerGameControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CustomControls\TitledListBox.resx">
       <DependentUpon>TitledListBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -152,8 +162,6 @@
   <ItemGroup>
     <None Include="Resources\profile_icon.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="BackendData\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

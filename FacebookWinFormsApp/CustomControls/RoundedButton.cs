@@ -14,7 +14,7 @@ namespace BasicFacebookFeatures.CustomControls
     {
         private int m_BorderSize = 0;
         private int m_BorderRadius = 40;
-        private Color m_BorderColor = Color.PaleGreen;
+        private Color m_BorderColor = Color.Transparent;
 
         public int BorderSize
         {
