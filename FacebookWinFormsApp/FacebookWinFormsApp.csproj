@@ -77,7 +77,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Backend\HigherLowerGame.cs" />
+    <Compile Include="Backend\GameOverEventArgs.cs" />
+    <Compile Include="Backend\GuessResultEventArgs.cs" />
+    <Compile Include="Backend\HigherLowerGameLogic.cs" />
+    <Compile Include="Backend\MockPage.cs" />
+    <Compile Include="Backend\PageSelectedEventArgs.cs" />
     <Compile Include="CustomControls\CircularPictureBox.cs">
       <SubType>Component</SubType>
     </Compile>

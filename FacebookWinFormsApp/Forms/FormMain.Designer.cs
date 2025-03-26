@@ -40,19 +40,13 @@ namespace BasicFacebookFeatures
             this.buttonLogout = new BasicFacebookFeatures.CustomControls.RoundedButton();
             this.labelUserName = new System.Windows.Forms.Label();
             this.coverPictureBox = new System.Windows.Forms.PictureBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.higherLowerGameControl1 = new BasicFacebookFeatures.CustomControls.HigherLowerGameControl();
-            this.pictureBoxPage2 = new System.Windows.Forms.PictureBox();
-            this.pictureBoxPage1 = new System.Windows.Forms.PictureBox();
-            this.labelPage2 = new System.Windows.Forms.Label();
-            this.labelPage1 = new System.Windows.Forms.Label();
+            this.tabPageHigherLower = new System.Windows.Forms.TabPage();
+            this.higherLowerGameControl = new BasicFacebookFeatures.CustomControls.HigherLowerGameControl();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.profilePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.coverPictureBox)).BeginInit();
-            this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPage2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPage1)).BeginInit();
+            this.tabPageHigherLower.SuspendLayout();
             this.SuspendLayout();
             // 
             // imageList1
@@ -64,7 +58,7 @@ namespace BasicFacebookFeatures
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPageHigherLower);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.tabControl1.ImageList = this.imageList1;
@@ -75,6 +69,7 @@ namespace BasicFacebookFeatures
             this.tabControl1.ShowToolTips = true;
             this.tabControl1.Size = new System.Drawing.Size(850, 557);
             this.tabControl1.TabIndex = 54;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPage1
             // 
@@ -150,67 +145,25 @@ namespace BasicFacebookFeatures
             this.coverPictureBox.TabIndex = 57;
             this.coverPictureBox.TabStop = false;
             // 
-            // tabPage2
+            // tabPageHigherLower
             // 
-            this.tabPage2.Controls.Add(this.higherLowerGameControl1);
-            this.tabPage2.Controls.Add(this.pictureBoxPage2);
-            this.tabPage2.Controls.Add(this.pictureBoxPage1);
-            this.tabPage2.Controls.Add(this.labelPage2);
-            this.tabPage2.Controls.Add(this.labelPage1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 31);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(842, 522);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.ToolTipText = "HigherLower";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPageHigherLower.Controls.Add(this.higherLowerGameControl);
+            this.tabPageHigherLower.Location = new System.Drawing.Point(4, 31);
+            this.tabPageHigherLower.Name = "tabPageHigherLower";
+            this.tabPageHigherLower.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageHigherLower.Size = new System.Drawing.Size(842, 522);
+            this.tabPageHigherLower.TabIndex = 1;
+            this.tabPageHigherLower.ToolTipText = "HigherLower";
+            this.tabPageHigherLower.UseVisualStyleBackColor = true;
             // 
-            // higherLowerGameControl1
+            // higherLowerGameControl
             // 
-            this.higherLowerGameControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.higherLowerGameControl1.Location = new System.Drawing.Point(3, 3);
-            this.higherLowerGameControl1.Margin = new System.Windows.Forms.Padding(4);
-            this.higherLowerGameControl1.Name = "higherLowerGameControl1";
-            this.higherLowerGameControl1.Size = new System.Drawing.Size(836, 516);
-            this.higherLowerGameControl1.TabIndex = 4;
-            // 
-            // pictureBoxPage2
-            // 
-            this.pictureBoxPage2.Location = new System.Drawing.Point(340, 137);
-            this.pictureBoxPage2.Name = "pictureBoxPage2";
-            this.pictureBoxPage2.Size = new System.Drawing.Size(203, 179);
-            this.pictureBoxPage2.TabIndex = 3;
-            this.pictureBoxPage2.TabStop = false;
-            this.pictureBoxPage2.Visible = false;
-            // 
-            // pictureBoxPage1
-            // 
-            this.pictureBoxPage1.Location = new System.Drawing.Point(57, 137);
-            this.pictureBoxPage1.Name = "pictureBoxPage1";
-            this.pictureBoxPage1.Size = new System.Drawing.Size(203, 179);
-            this.pictureBoxPage1.TabIndex = 2;
-            this.pictureBoxPage1.TabStop = false;
-            this.pictureBoxPage1.Visible = false;
-            // 
-            // labelPage2
-            // 
-            this.labelPage2.AutoSize = true;
-            this.labelPage2.Location = new System.Drawing.Point(337, 103);
-            this.labelPage2.Name = "labelPage2";
-            this.labelPage2.Size = new System.Drawing.Size(56, 18);
-            this.labelPage2.TabIndex = 1;
-            this.labelPage2.Text = "Page B";
-            this.labelPage2.Visible = false;
-            // 
-            // labelPage1
-            // 
-            this.labelPage1.AutoSize = true;
-            this.labelPage1.Location = new System.Drawing.Point(54, 103);
-            this.labelPage1.Name = "labelPage1";
-            this.labelPage1.Size = new System.Drawing.Size(55, 18);
-            this.labelPage1.TabIndex = 0;
-            this.labelPage1.Text = "Page A";
-            this.labelPage1.Visible = false;
+            this.higherLowerGameControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.higherLowerGameControl.Location = new System.Drawing.Point(3, 3);
+            this.higherLowerGameControl.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.higherLowerGameControl.Name = "higherLowerGameControl";
+            this.higherLowerGameControl.Size = new System.Drawing.Size(836, 516);
+            this.higherLowerGameControl.TabIndex = 5;
             // 
             // FormMain
             // 
@@ -232,10 +185,7 @@ namespace BasicFacebookFeatures
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.profilePictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.coverPictureBox)).EndInit();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPage2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPage1)).EndInit();
+            this.tabPageHigherLower.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -243,17 +193,13 @@ namespace BasicFacebookFeatures
 		#endregion
 		private CustomTabControl tabControl1;
 		private System.Windows.Forms.TabPage tabPage1;
-		private System.Windows.Forms.TabPage tabPage2;
+		private System.Windows.Forms.TabPage tabPageHigherLower;
         private System.Windows.Forms.PictureBox coverPictureBox;
         private System.Windows.Forms.ImageList imageList1;
-        private System.Windows.Forms.PictureBox pictureBoxPage2;
-        private System.Windows.Forms.PictureBox pictureBoxPage1;
-        private System.Windows.Forms.Label labelPage2;
-        private System.Windows.Forms.Label labelPage1;
         private System.Windows.Forms.Label labelUserName;
         private RoundedButton buttonLogout;
-        private HigherLowerGameControl higherLowerGameControl1;
         private CircularPictureBox profilePictureBox;
+        private HigherLowerGameControl higherLowerGameControl;
     }
 }
 

@@ -2,6 +2,8 @@
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using BasicFacebookFeatures.Backend;
+using BasicFacebookFeatures.CustomControls;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
 
@@ -10,6 +12,8 @@ namespace BasicFacebookFeatures
     public partial class FormMain : Form
     {
         private User m_LoggedInUser;
+        private HigherLowerGameLogic m_HigherLowerGameLogic;
+        private bool m_IsGameInit = false;
 
         public FormMain(User i_LoggedInUser)
         {
@@ -24,7 +28,7 @@ namespace BasicFacebookFeatures
             getCoverPhoto();
             getProfilePhoto();
             // getUserName();
-            getPage();
+            // getPage();
         }
 
         private void getUserName()
@@ -59,12 +63,29 @@ namespace BasicFacebookFeatures
             this.Invoke(new Action(this.Close));
         }
 
-        private void getPage()
+        //private void getPage()
+        //{
+        //    labelPage1.Text = m_LoggedInUser.LikedPages[0].Name;
+        //    labelPage2.Text = m_LoggedInUser.LikedPages[1].Name;
+        //    pictureBoxPage1.ImageLocation = m_LoggedInUser.LikedPages[0].PictureURL;
+        //    pictureBoxPage2.ImageLocation = m_LoggedInUser.LikedPages[1].PictureURL;
+        //}
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            labelPage1.Text = m_LoggedInUser.LikedPages[0].Name;
-            labelPage2.Text = m_LoggedInUser.LikedPages[1].Name;
-            pictureBoxPage1.ImageLocation = m_LoggedInUser.LikedPages[0].PictureURL;
-            pictureBoxPage2.ImageLocation = m_LoggedInUser.LikedPages[1].PictureURL;
+            if (tabControl1.SelectedTab == tabPageHigherLower)
+            {
+                initHigherLowerGame();
+            }
+        }
+
+        private void initHigherLowerGame()
+        {
+            m_HigherLowerGameLogic = new HigherLowerGameLogic(m_LoggedInUser);
+
+            higherLowerGameControl.InitGame(m_HigherLowerGameLogic);
+            m_HigherLowerGameLogic.StartNewGame();
+            m_IsGameInit = true;
         }
     }
 }

@@ -33,15 +33,15 @@
             this.panelPage1 = new System.Windows.Forms.Panel();
             this.pictureBoxPage1 = new System.Windows.Forms.PictureBox();
             this.labelPage1Name = new System.Windows.Forms.Label();
-            this.buttonHigherPage1 = new BasicFacebookFeatures.CustomControls.RoundedButton();
             this.labelPage1Likes = new System.Windows.Forms.Label();
             this.panelPage2 = new System.Windows.Forms.Panel();
             this.pictureBoxPage2 = new System.Windows.Forms.PictureBox();
             this.labelPage2Name = new System.Windows.Forms.Label();
-            this.buttonHigherPage2 = new BasicFacebookFeatures.CustomControls.RoundedButton();
             this.labelPage2Likes = new System.Windows.Forms.Label();
             this.labelTimer = new System.Windows.Forms.Label();
             this.labelScore = new System.Windows.Forms.Label();
+            this.buttonHigherPage1 = new BasicFacebookFeatures.CustomControls.RoundedButton();
+            this.buttonHigherPage2 = new BasicFacebookFeatures.CustomControls.RoundedButton();
             this.buttonNewGame = new BasicFacebookFeatures.CustomControls.RoundedButton();
             this.panelMain.SuspendLayout();
             this.panelPage1.SuspendLayout();
@@ -117,24 +117,6 @@
             this.labelPage1Name.Text = "Page Name";
             this.labelPage1Name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // buttonHigherPage1
-            // 
-            this.buttonHigherPage1.BackColor = System.Drawing.Color.RoyalBlue;
-            this.buttonHigherPage1.BackgroundColor = System.Drawing.Color.RoyalBlue;
-            this.buttonHigherPage1.BorderColor = System.Drawing.Color.PaleGreen;
-            this.buttonHigherPage1.BorderRadius = 40;
-            this.buttonHigherPage1.BorderSize = 0;
-            this.buttonHigherPage1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonHigherPage1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonHigherPage1.ForeColor = System.Drawing.Color.White;
-            this.buttonHigherPage1.Location = new System.Drawing.Point(45, 200);
-            this.buttonHigherPage1.Name = "buttonHigherPage1";
-            this.buttonHigherPage1.Size = new System.Drawing.Size(160, 40);
-            this.buttonHigherPage1.TabIndex = 7;
-            this.buttonHigherPage1.Text = "Higher";
-            this.buttonHigherPage1.TextColor = System.Drawing.Color.White;
-            this.buttonHigherPage1.UseVisualStyleBackColor = false;
-            // 
             // labelPage1Likes
             // 
             this.labelPage1Likes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -187,25 +169,6 @@
             this.labelPage2Name.Text = "Page Name";
             this.labelPage2Name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // buttonHigherPage2
-            // 
-            this.buttonHigherPage2.BackColor = System.Drawing.Color.RoyalBlue;
-            this.buttonHigherPage2.BackgroundColor = System.Drawing.Color.RoyalBlue;
-            this.buttonHigherPage2.BorderColor = System.Drawing.Color.PaleGreen;
-            this.buttonHigherPage2.BorderRadius = 40;
-            this.buttonHigherPage2.BorderSize = 0;
-            this.buttonHigherPage2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonHigherPage2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonHigherPage2.ForeColor = System.Drawing.Color.White;
-            this.buttonHigherPage2.Location = new System.Drawing.Point(45, 200);
-            this.buttonHigherPage2.Name = "buttonHigherPage2";
-            this.buttonHigherPage2.Size = new System.Drawing.Size(160, 40);
-            this.buttonHigherPage2.TabIndex = 7;
-            this.buttonHigherPage2.Text = "Higher";
-            this.buttonHigherPage2.TextColor = System.Drawing.Color.White;
-            this.buttonHigherPage2.UseVisualStyleBackColor = false;
-            this.buttonHigherPage2.Click += new System.EventHandler(this.buttonHigherPage2_Click);
-            // 
             // labelPage2Likes
             // 
             this.labelPage2Likes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -240,6 +203,44 @@
             this.labelScore.Text = "Score: 0";
             this.labelScore.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // buttonHigherPage1
+            // 
+            this.buttonHigherPage1.BackColor = System.Drawing.Color.RoyalBlue;
+            this.buttonHigherPage1.BackgroundColor = System.Drawing.Color.RoyalBlue;
+            this.buttonHigherPage1.BorderColor = System.Drawing.Color.PaleGreen;
+            this.buttonHigherPage1.BorderRadius = 40;
+            this.buttonHigherPage1.BorderSize = 0;
+            this.buttonHigherPage1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonHigherPage1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonHigherPage1.ForeColor = System.Drawing.Color.White;
+            this.buttonHigherPage1.Location = new System.Drawing.Point(45, 200);
+            this.buttonHigherPage1.Name = "buttonHigherPage1";
+            this.buttonHigherPage1.Size = new System.Drawing.Size(160, 40);
+            this.buttonHigherPage1.TabIndex = 7;
+            this.buttonHigherPage1.Text = "Higher";
+            this.buttonHigherPage1.TextColor = System.Drawing.Color.White;
+            this.buttonHigherPage1.UseVisualStyleBackColor = false;
+            this.buttonHigherPage1.Click += new System.EventHandler(this.buttonHigherPage1_Click);
+            // 
+            // buttonHigherPage2
+            // 
+            this.buttonHigherPage2.BackColor = System.Drawing.Color.RoyalBlue;
+            this.buttonHigherPage2.BackgroundColor = System.Drawing.Color.RoyalBlue;
+            this.buttonHigherPage2.BorderColor = System.Drawing.Color.PaleGreen;
+            this.buttonHigherPage2.BorderRadius = 40;
+            this.buttonHigherPage2.BorderSize = 0;
+            this.buttonHigherPage2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonHigherPage2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonHigherPage2.ForeColor = System.Drawing.Color.White;
+            this.buttonHigherPage2.Location = new System.Drawing.Point(45, 200);
+            this.buttonHigherPage2.Name = "buttonHigherPage2";
+            this.buttonHigherPage2.Size = new System.Drawing.Size(160, 40);
+            this.buttonHigherPage2.TabIndex = 7;
+            this.buttonHigherPage2.Text = "Higher";
+            this.buttonHigherPage2.TextColor = System.Drawing.Color.White;
+            this.buttonHigherPage2.UseVisualStyleBackColor = false;
+            this.buttonHigherPage2.Click += new System.EventHandler(this.buttonHigherPage2_Click);
+            // 
             // buttonNewGame
             // 
             this.buttonNewGame.BackColor = System.Drawing.Color.RoyalBlue;
@@ -257,6 +258,7 @@
             this.buttonNewGame.Text = "New Game";
             this.buttonNewGame.TextColor = System.Drawing.Color.White;
             this.buttonNewGame.UseVisualStyleBackColor = false;
+            this.buttonNewGame.Click += new System.EventHandler(this.buttonNewGame_Click);
             // 
             // HigherLowerGameControl
             // 
