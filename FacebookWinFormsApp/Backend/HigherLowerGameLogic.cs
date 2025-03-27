@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 
 namespace BasicFacebookFeatures.Backend
@@ -11,26 +10,42 @@ namespace BasicFacebookFeatures.Backend
 
     public delegate void GameOverEventHandler(object sender, GameOverEventArgs e);
 
+    public delegate void TimerTickEventHandler(object sender, TimerEventArgs e);
+
+    public delegate void TimeExpiredEventArgs(object sender, EventArgs e);
+
 
     public class HigherLowerGameLogic
     {
         private const int k_TimeLimitSeconds = 15;
+        private const int k_LowTimeThreshold = 5;
+
         private User m_LoggedInUser;
         private HigherLowerGameLogic m_Game;
-        private readonly List<Page> r_UnusedPages = new List<Page>();
+        private readonly List<MockPage> r_UnusedPages = new List<MockPage>();
         private readonly HashSet<string> r_UsedPageIds = new HashSet<string>();
-        private Page m_CurrentWinningPage;
-        private Page m_NewChallengingPage;
+        private MockPage m_CurrentWinningPage;
+        private MockPage m_NewChallengingPage;
         private int m_Score;
         private bool m_IsGameOver;
         private static readonly Random sr_RandomPage = new Random();
+        private int m_RemainingSeconds;
+        private bool m_IsTimerRunning;
 
         public event PagesSelectedEventHandler PagesSelected;
         public event GuessResultEventHandler GuessResult;
         public event GameOverEventHandler GameOver;
+        public event TimerTickEventHandler TimerTick;
+        public event TimeExpiredEventArgs TimeExpired;
 
 
-        public int Score { get; }
+        public int Score
+        {
+            get
+            {
+                return m_Score;
+            }
+        }
 
         public bool IsGameOver
         {
@@ -48,27 +63,51 @@ namespace BasicFacebookFeatures.Backend
             }
         }
 
+        public int TimeLimit
+        {
+            get
+            {
+                return k_TimeLimitSeconds;
+            }
+        }
+
+        public int RemainingSeconds
+        {
+            get
+            {
+                return m_RemainingSeconds;
+            }
+        }
+
+        public bool IsTimerRunning
+        {
+            get
+            {
+                return m_IsTimerRunning;
+            }
+        }
+
         public HigherLowerGameLogic(User i_LoggedInUser)
         {
             m_LoggedInUser = i_LoggedInUser;
-            Score = 0;
+            m_Score = 0;
             m_IsGameOver = false;
-
-            initPagesList();
+            m_RemainingSeconds = k_TimeLimitSeconds;
+            m_IsTimerRunning = false;
         }
 
         private void initPagesList()
         {
+            r_UnusedPages.Clear();
+            r_UsedPageIds.Clear();
+
             if (m_LoggedInUser.LikedPages != null && m_LoggedInUser.LikedPages.Count > 0)
             {
                 foreach (Page page in m_LoggedInUser.LikedPages)
                 {
                     MockPage mockPage = new MockPage(page);
-                    //if (page.LikesCount == null)
-                    //{
-                    //}
                     
-                    r_UnusedPages.Add((Page)mockPage);
+                    r_UnusedPages.Add(mockPage);
                 }
 
                 if (r_UnusedPages.Count < 2)
@@ -86,11 +125,70 @@ namespace BasicFacebookFeatures.Backend
 
         public void StartNewGame()
         {
-            r_UnusedPages.Clear();
-            r_UsedPageIds.Clear();
-            initPagesList();
-            m_Score = 0;
-            m_IsGameOver = false;
+            try
+            {
+                m_Score = 0;
+                m_IsGameOver = false;
+                m_RemainingSeconds = k_TimeLimitSeconds;
+                m_IsTimerRunning = false;
+
+                initPagesList();
+
+                m_CurrentWinningPage = getNextPage();
+                m_NewChallengingPage = getNextPage();
+
+                if (m_CurrentWinningPage != null && m_NewChallengingPage != null)
+                {
+                    OnPagesSelected(
+                        new PageSelectedEventArgs(
+                            m_CurrentWinningPage.GetOriginalPage(),
+                            m_NewChallengingPage.GetOriginalPage()));
+
+                    StartTimer();
+                }
+                else
+                {
+                    throw new Exception("Not enough pages to start the game");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error starting the game: " + ex.Message);
+            }
+        }
+
+        public void StartTimer()
+        {
+            if (!m_IsGameOver)
+            {
+                m_RemainingSeconds = k_TimeLimitSeconds;
+                m_IsTimerRunning = true;
+                OnTimerTick();
+            }
+        }
+
+        public void StopTimer()
+        {
+            m_IsTimerRunning = false;
+        }
+
+        public void TimerTicks()
+        {
+            if (m_IsTimerRunning && !m_IsGameOver)
+            {
+                m_RemainingSeconds--;
+
+                if (m_RemainingSeconds <= 0)
+                {
+                    m_RemainingSeconds = 0;
+                    m_IsTimerRunning = false;
+                    OnTimeExpired();
+                }
+                else
+                {
+                    OnTimerTick();
+                }
+            }
         }
 
         private void shufflePages<T>(List<T> i_List)
@@ -113,6 +211,8 @@ namespace BasicFacebookFeatures.Backend
                 return;
             }
 
+            StopTimer();
+
             bool isCorrectGuess;
             bool isFirstPageHigher = m_CurrentWinningPage.LikesCount > m_NewChallengingPage.LikesCount;
 
@@ -125,19 +225,29 @@ namespace BasicFacebookFeatures.Backend
 
             OnGuessResult(new GuessResultEventArgs((int)m_CurrentWinningPage.LikesCount, (int)m_NewChallengingPage.LikesCount, isCorrectGuess));
 
-            if (isFirstPageHigher)
+            //if (isFirstPageHigher)
+            //{
+            //    selectNextPage(i_KeepFirstPage: true);
+            //}
+            //else
+            //{
+            //    selectNextPage(i_KeepFirstPage: false);
+            //}
+        }
+
+        public void SelectNextPage(bool i_KeepFirstPage)
+        {
+            if (m_IsGameOver)
             {
-                selectNextPage(i_KeepFirstPage: true);
+                return;
             }
-            else
-            {
-                selectNextPage(i_KeepFirstPage: false);
-            }
+            
+            selectNextPage(i_KeepFirstPage);
         }
 
         private void selectNextPage(bool i_KeepFirstPage)
         {
-            Page nextPage = getNextPage();
+            MockPage nextPage = getNextPage();
 
             if (nextPage != null)
             {
@@ -147,7 +257,11 @@ namespace BasicFacebookFeatures.Backend
                 }
 
                 m_NewChallengingPage = nextPage;
-                OnPagesSelected(new PageSelectedEventArgs(m_CurrentWinningPage, m_NewChallengingPage));
+                OnPagesSelected(new PageSelectedEventArgs(
+                    m_CurrentWinningPage.GetOriginalPage(), 
+                    m_NewChallengingPage.GetOriginalPage()));
+
+                StartTimer();
             }
             else
             {
@@ -156,9 +270,9 @@ namespace BasicFacebookFeatures.Backend
             }
         }
 
-        private Page getNextPage()
+        private MockPage getNextPage()
         {
-            Page nextPage = null;
+            MockPage nextPage = null;
 
             if (r_UnusedPages.Count > 0)
             {
@@ -168,6 +282,26 @@ namespace BasicFacebookFeatures.Backend
             }
 
             return nextPage;
+        }
+
+        public void HandleTimeExpired()
+        {
+            if (!m_IsGameOver)
+            {
+                MakeGuess(i_IsFirstPageHigher: true);
+            }
+        }
+
+        protected virtual void OnTimerTick()
+        {
+            bool isTimeRunningLow = m_RemainingSeconds <= k_LowTimeThreshold;
+
+            TimerTick?.Invoke(this, new TimerEventArgs(m_RemainingSeconds, isTimeRunningLow));
+        }
+
+        protected virtual void OnTimeExpired()
+        {
+            TimeExpired?.Invoke(this, EventArgs.Empty);
         }
 
         protected virtual void OnPagesSelected(PageSelectedEventArgs e)
