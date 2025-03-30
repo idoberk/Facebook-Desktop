@@ -10,7 +10,7 @@ namespace BasicFacebookFeatures.Backend
     {
         private readonly Label r_LabelScore;
         private readonly Label r_LabelTimer;
-        private readonly Label r_LabelTimeOver;
+        private readonly Label r_LabelRoundFeedback;
         private readonly Label r_LabelPage1Name;
         private readonly Label r_LabelPage2Name;
         private readonly Label r_LabelPage1Likes;
@@ -30,11 +30,12 @@ namespace BasicFacebookFeatures.Backend
         private Timer m_UiTimer;
         private Timer m_DelayTimer;
         private bool m_IsGameInit;
+        private const int k_DelayBetweenRoundsMs = 3000;
 
         public HigherLowerGameManager(
             Label i_LabelScore,
             Label i_LabelTimer,
-            Label i_LabelTimeOver,
+            Label i_LabelRoundFeedback,
             Label i_LabelPage1Name,
             Label i_LabelPage2Name,
             Label i_LabelPage1Likes,
@@ -49,7 +50,7 @@ namespace BasicFacebookFeatures.Backend
         {
             r_LabelScore = i_LabelScore;
             r_LabelTimer = i_LabelTimer;
-            r_LabelTimeOver = i_LabelTimeOver;
+            r_LabelRoundFeedback = i_LabelRoundFeedback;
             r_LabelPage1Name = i_LabelPage1Name;
             r_LabelPage2Name = i_LabelPage2Name;
             r_LabelPage1Likes = i_LabelPage1Likes;
@@ -79,6 +80,10 @@ namespace BasicFacebookFeatures.Backend
                 initHigherLowerGame();
                 m_IsGameInit = true;
             }
+            else
+            {
+                initStateUi();
+            }
         }
 
         private void initHigherLowerGame()
@@ -88,10 +93,9 @@ namespace BasicFacebookFeatures.Backend
                 m_GameLogic = new HigherLowerGameLogic(r_LoggedInUser);
 
                 attachEventHandlers();
-                resetUiForNewGame();
-                m_UiTimer.Start();
-                m_GameLogic.StartNewGame();
-            } catch(Exception ex)
+                initStateUi();
+            }
+            catch (Exception ex)
             {
                 handleGameInitError(ex);
             }
@@ -103,6 +107,8 @@ namespace BasicFacebookFeatures.Backend
             {
                 m_GameLogic.StopTimer();
                 resetUiForNewGame();
+                r_ButtonNewGame.Enabled = false;
+                m_UiTimer.Start();
                 m_GameLogic.StartNewGame();
             }
         }
@@ -117,6 +123,7 @@ namespace BasicFacebookFeatures.Backend
 
             stopAndDisposeTimers();
             removeButtonEventHandlers();
+            r_ButtonNewGame.Enabled = true;
         }
 
         private void detachEventHandlers()
@@ -135,7 +142,6 @@ namespace BasicFacebookFeatures.Backend
             m_GameLogic.GameOver += GameLogic_GameOver;
             m_GameLogic.TimerTick += GameLogic_TimerTick;
             m_GameLogic.TimeExpired += GameLogic_TimeExpired;
-
         }
 
         private void stopAndDisposeTimers()
@@ -146,13 +152,6 @@ namespace BasicFacebookFeatures.Backend
                 m_UiTimer.Dispose();
                 m_UiTimer = null;
             }
-
-            //if (m_DelayTimer != null)
-            //{
-            //    m_DelayTimer.Stop();
-            //    m_DelayTimer.Dispose();
-            //    m_DelayTimer = null;
-            //}
         }
 
         private void removeButtonEventHandlers()
@@ -165,10 +164,38 @@ namespace BasicFacebookFeatures.Backend
         private void resetUiForNewGame()
         {
             r_LabelScore.Text = "Score: 0";
-            r_LabelTimer.Text = $"Time: {m_GameLogic.TimeLimit.ToString()}s";
+
+            r_LabelTimer.Text = $"Time: {m_GameLogic.TimeLimit}s";
+            r_LabelTimer.ForeColor = Color.Blue;
+
             r_ButtonHigherPage1.Enabled = true;
             r_ButtonHigherPage2.Enabled = true;
-            r_LabelTimeOver.Visible = false;
+
+            r_LabelRoundFeedback.Visible = false;
+        }
+
+        private void initStateUi()
+        {
+            r_LabelScore.Text = "Score: 0";
+
+            r_LabelTimer.Text = $"Time: {m_GameLogic.TimeLimit}s";
+            r_LabelTimer.ForeColor = Color.Blue;
+
+            r_LabelPage1Name.Text = "Page Name";
+            r_LabelPage2Name.Text = "Page Name";
+
+            r_LabelRoundFeedback.Visible = false;
+
+            r_LabelPage1Likes.Visible = false;
+            r_LabelPage2Likes.Visible = false;
+
+            r_ButtonHigherPage1.Enabled = false;
+            r_ButtonHigherPage2.Enabled = false;
+
+            r_PictureBoxPage1.ImageLocation = null;
+            r_PictureBoxPage2.ImageLocation = null;
+
+            r_ButtonNewGame.Enabled = true;
         }
 
         private void handleGameInitError(Exception i_Exception)
@@ -185,15 +212,10 @@ namespace BasicFacebookFeatures.Backend
 
         private void UiTimer_Tick(object sender, EventArgs e)
         {
-            if(m_GameLogic != null)
+            if (m_GameLogic != null)
             {
                 m_GameLogic.TimerTicks();
             }
-        }
-
-        private void DelayTimer_Tick(object sender, EventArgs e)
-        {
-            cleanupExistingDelayTimer();
         }
 
         private void GameLogic_PagesSelected(object sender, PageSelectedEventArgs e)
@@ -269,23 +291,8 @@ namespace BasicFacebookFeatures.Backend
         {
             try
             {
-                updatePageLikesDisplay(i_GuessResult);
-                updateScoreDisplay();
-                disableGuessButtons();
-                cleanupExistingDelayTimer();
-
-                m_DelayTimer = new Timer();
-
-                m_DelayTimer.Interval = 3000;
-                m_DelayTimer.Tick += (s, args) =>
-                    {
-                        cleanupExistingDelayTimer();
-
-                        m_GameLogic.SelectNextPage(i_GuessResult.IsCorrect);
-                    };
-                m_DelayTimer.Start();
-
-                // startDelayTimer();
+                displayGuessResult(i_GuessResult);
+                scheduleNextRound(i_GuessResult.IsFirstPageHigher);
             }
             catch (Exception ex)
             {
@@ -313,25 +320,38 @@ namespace BasicFacebookFeatures.Backend
             r_ButtonHigherPage2.Enabled = false;
         }
 
-        //private void startDelayTimer()
-        //{
-        //    cleanupExistingDelayTimer();
-
-        //    m_DelayTimer = new Timer();
-
-        //    m_DelayTimer.Interval = 3000;
-        //    m_DelayTimer.Tick += DelayTimer_Tick;
-        //    m_DelayTimer.Start();
-        //}
-
         private void cleanupExistingDelayTimer()
         {
-            if(m_DelayTimer != null)
+            if (m_DelayTimer != null)
             {
                 m_DelayTimer.Stop();
                 m_DelayTimer.Dispose();
                 m_DelayTimer = null;
             }
+        }
+
+        private void displayGuessResult(GuessResultEventArgs i_GuessResult)
+        {
+            updatePageLikesDisplay(i_GuessResult);
+            updateScoreDisplay();
+            disableGuessButtons();
+            showFeedbackLabel(i_GuessResult.IsCorrect);
+        }
+
+        private void showFeedbackLabel(bool i_IsCorrect)
+        {
+            if (i_IsCorrect)
+            {
+                r_LabelRoundFeedback.Text = "Correct!";
+                r_LabelRoundFeedback.BackColor = Color.Green;
+            }
+            else
+            {
+                r_LabelRoundFeedback.Text = "Wrong!";
+                r_LabelRoundFeedback.BackColor = Color.Red;
+            }
+
+            r_LabelRoundFeedback.Visible = true;
         }
 
         private void showGuessResultError(Exception i_Exception)
@@ -343,11 +363,30 @@ namespace BasicFacebookFeatures.Backend
                 MessageBoxIcon.Error);
         }
 
+        private void scheduleNextRound(bool i_IsFirstPageHigher)
+        {
+            cleanupExistingDelayTimer();
+
+            m_DelayTimer = new Timer();
+
+            m_DelayTimer.Interval = k_DelayBetweenRoundsMs;
+            m_DelayTimer.Tick += (s, args) =>
+                {
+                    r_LabelRoundFeedback.Visible = false;
+
+                    cleanupExistingDelayTimer();
+
+                    m_GameLogic.SelectNextPage(i_IsFirstPageHigher);
+                };
+            m_DelayTimer.Start();
+        }
+
         private void handleGameOver(GameOverEventArgs i_GameOverData)
         {
             try
             {
                 disableGuessButtons();
+                r_ButtonNewGame.Enabled = true;
                 showGameOverMessage(i_GameOverData.FinalScore);
             }
             catch (Exception ex)
@@ -376,13 +415,22 @@ namespace BasicFacebookFeatures.Backend
 
         private void updateTimerDisplay(TimerEventArgs i_TimerData)
         {
-            r_LabelTimer.Text = $"Time: {i_TimerData.RemainingSeconds.ToString()}s";
+            r_LabelTimer.Text = $"Time: {i_TimerData.RemainingSeconds}s";
             r_LabelTimer.ForeColor = i_TimerData.IsTimeRunningOut ? Color.Red : Color.Blue;
         }
 
         private void handleTimeExpired()
         {
-            r_LabelTimeOver.Visible = true;
+            r_LabelRoundFeedback.Text = "TIME OVER!";
+            r_LabelRoundFeedback.BackColor = Color.Red;
+            r_LabelRoundFeedback.Visible = true;
+
+            if (m_GameLogic.IsGameOver)
+            {
+                r_ButtonNewGame.Enabled = true;
+            }
+
+            r_LabelRoundFeedback.Visible = true;
             startTimeExpiredTimer();
         }
 
@@ -401,7 +449,7 @@ namespace BasicFacebookFeatures.Backend
             timer.Stop();
             timer.Dispose();
 
-            r_LabelTimeOver.Visible = false;
+            r_LabelRoundFeedback.Visible = false;
 
             if (!m_GameLogic.IsGameOver)
             {
@@ -411,7 +459,7 @@ namespace BasicFacebookFeatures.Backend
 
         private void buttonHigherPage1_Click(object sender, EventArgs e)
         {
-            if(m_GameLogic != null)
+            if (m_GameLogic != null)
             {
                 m_GameLogic.MakeGuess(true);
             }
@@ -419,7 +467,7 @@ namespace BasicFacebookFeatures.Backend
 
         private void buttonHigherPage2_Click(object sender, EventArgs e)
         {
-            if(m_GameLogic != null)
+            if (m_GameLogic != null)
             {
                 m_GameLogic.MakeGuess(false);
             }

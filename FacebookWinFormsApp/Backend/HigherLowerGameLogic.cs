@@ -19,9 +19,9 @@ namespace BasicFacebookFeatures.Backend
     {
         private const int k_TimeLimitSeconds = 15;
         private const int k_LowTimeThreshold = 5;
+        private const int k_MinPagesRequired = 2;
 
         private User m_LoggedInUser;
-        private HigherLowerGameLogic m_Game;
         private readonly List<MockPage> r_UnusedPages = new List<MockPage>();
         private readonly HashSet<string> r_UsedPageIds = new HashSet<string>();
         private MockPage m_CurrentWinningPage;
@@ -33,58 +33,44 @@ namespace BasicFacebookFeatures.Backend
         private bool m_IsTimerRunning;
 
         public event PagesSelectedEventHandler PagesSelected;
+
         public event GuessResultEventHandler GuessResult;
+
         public event GameOverEventHandler GameOver;
+
         public event TimerTickEventHandler TimerTick;
+
         public event TimeExpiredEventArgs TimeExpired;
 
 
         public int Score
         {
-            get
-            {
-                return m_Score;
-            }
+            get { return m_Score; }
         }
 
         public bool IsGameOver
         {
-            get
-            {
-                return m_IsGameOver;
-            }
+            get { return m_IsGameOver; }
         }
 
         public int RemainingPages
         {
-            get
-            {
-                return r_UnusedPages.Count;
-            }
+            get { return r_UnusedPages.Count; }
         }
 
         public int TimeLimit
         {
-            get
-            {
-                return k_TimeLimitSeconds;
-            }
+            get { return k_TimeLimitSeconds; }
         }
 
         public int RemainingSeconds
         {
-            get
-            {
-                return m_RemainingSeconds;
-            }
+            get { return m_RemainingSeconds; }
         }
 
         public bool IsTimerRunning
         {
-            get
-            {
-                return m_IsTimerRunning;
-            }
+            get { return m_IsTimerRunning; }
         }
 
         public HigherLowerGameLogic(User i_LoggedInUser)
@@ -106,11 +92,11 @@ namespace BasicFacebookFeatures.Backend
                 foreach (Page page in m_LoggedInUser.LikedPages)
                 {
                     MockPage mockPage = new MockPage(page);
-                    
+
                     r_UnusedPages.Add(mockPage);
                 }
 
-                if (r_UnusedPages.Count < 2)
+                if (r_UnusedPages.Count < k_MinPagesRequired)
                 {
                     throw new Exception("Not enough pages to start the game");
                 }
@@ -223,16 +209,12 @@ namespace BasicFacebookFeatures.Backend
                 m_Score++;
             }
 
-            OnGuessResult(new GuessResultEventArgs((int)m_CurrentWinningPage.LikesCount, (int)m_NewChallengingPage.LikesCount, isCorrectGuess));
-
-            //if (isFirstPageHigher)
-            //{
-            //    selectNextPage(i_KeepFirstPage: true);
-            //}
-            //else
-            //{
-            //    selectNextPage(i_KeepFirstPage: false);
-            //}
+            OnGuessResult(
+                new GuessResultEventArgs(
+                    (int)m_CurrentWinningPage.LikesCount,
+                    (int)m_NewChallengingPage.LikesCount,
+                    isCorrectGuess,
+                    isFirstPageHigher));
         }
 
         public void SelectNextPage(bool i_KeepFirstPage)
@@ -241,7 +223,7 @@ namespace BasicFacebookFeatures.Backend
             {
                 return;
             }
-            
+
             selectNextPage(i_KeepFirstPage);
         }
 
@@ -257,9 +239,10 @@ namespace BasicFacebookFeatures.Backend
                 }
 
                 m_NewChallengingPage = nextPage;
-                OnPagesSelected(new PageSelectedEventArgs(
-                    m_CurrentWinningPage.GetOriginalPage(), 
-                    m_NewChallengingPage.GetOriginalPage()));
+                OnPagesSelected(
+                    new PageSelectedEventArgs(
+                        m_CurrentWinningPage.GetOriginalPage(),
+                        m_NewChallengingPage.GetOriginalPage()));
 
                 StartTimer();
             }

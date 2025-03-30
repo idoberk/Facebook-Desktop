@@ -42,30 +42,30 @@ namespace BasicFacebookFeatures
             this.coverPictureBox = new System.Windows.Forms.PictureBox();
             this.tabPageHigherLower = new System.Windows.Forms.TabPage();
             this.panelMain = new System.Windows.Forms.Panel();
-            this.labelScore = new System.Windows.Forms.Label();
-            this.buttonNewGame = new BasicFacebookFeatures.CustomControls.RoundedButton();
-            this.labelTimer = new System.Windows.Forms.Label();
-            this.labelTimeOver = new System.Windows.Forms.Label();
-            this.panelPage1 = new System.Windows.Forms.Panel();
-            this.pictureBoxPage1 = new System.Windows.Forms.PictureBox();
-            this.labelPage1Name = new System.Windows.Forms.Label();
-            this.buttonHigherPage1 = new BasicFacebookFeatures.CustomControls.RoundedButton();
-            this.labelPage1Likes = new System.Windows.Forms.Label();
+            this.labelRoundFeedback = new System.Windows.Forms.Label();
             this.panelPage2 = new System.Windows.Forms.Panel();
             this.pictureBoxPage2 = new System.Windows.Forms.PictureBox();
             this.labelPage2Name = new System.Windows.Forms.Label();
             this.buttonHigherPage2 = new BasicFacebookFeatures.CustomControls.RoundedButton();
             this.labelPage2Likes = new System.Windows.Forms.Label();
+            this.panelPage1 = new System.Windows.Forms.Panel();
+            this.pictureBoxPage1 = new System.Windows.Forms.PictureBox();
+            this.labelPage1Name = new System.Windows.Forms.Label();
+            this.buttonHigherPage1 = new BasicFacebookFeatures.CustomControls.RoundedButton();
+            this.labelPage1Likes = new System.Windows.Forms.Label();
+            this.labelTimer = new System.Windows.Forms.Label();
+            this.buttonNewGame = new BasicFacebookFeatures.CustomControls.RoundedButton();
+            this.labelScore = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.profilePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.coverPictureBox)).BeginInit();
             this.tabPageHigherLower.SuspendLayout();
             this.panelMain.SuspendLayout();
-            this.panelPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPage1)).BeginInit();
             this.panelPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPage2)).BeginInit();
+            this.panelPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPage1)).BeginInit();
             this.SuspendLayout();
             // 
             // imageList1
@@ -178,7 +178,7 @@ namespace BasicFacebookFeatures
             // panelMain
             // 
             this.panelMain.BackColor = System.Drawing.Color.AliceBlue;
-            this.panelMain.Controls.Add(this.labelTimeOver);
+            this.panelMain.Controls.Add(this.labelRoundFeedback);
             this.panelMain.Controls.Add(this.panelPage2);
             this.panelMain.Controls.Add(this.panelPage1);
             this.panelMain.Controls.Add(this.labelTimer);
@@ -190,127 +190,17 @@ namespace BasicFacebookFeatures
             this.panelMain.Size = new System.Drawing.Size(836, 516);
             this.panelMain.TabIndex = 0;
             // 
-            // labelScore
+            // labelRoundFeedback
             // 
-            this.labelScore.AutoSize = true;
-            this.labelScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelScore.Location = new System.Drawing.Point(20, 26);
-            this.labelScore.Name = "labelScore";
-            this.labelScore.Size = new System.Drawing.Size(76, 20);
-            this.labelScore.TabIndex = 4;
-            this.labelScore.Text = "Score: 0";
-            this.labelScore.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // buttonNewGame
-            // 
-            this.buttonNewGame.BackColor = System.Drawing.Color.RoyalBlue;
-            this.buttonNewGame.BackgroundColor = System.Drawing.Color.RoyalBlue;
-            this.buttonNewGame.BorderColor = System.Drawing.Color.PaleGreen;
-            this.buttonNewGame.BorderRadius = 30;
-            this.buttonNewGame.BorderSize = 0;
-            this.buttonNewGame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonNewGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonNewGame.ForeColor = System.Drawing.Color.White;
-            this.buttonNewGame.Location = new System.Drawing.Point(682, 10);
-            this.buttonNewGame.Name = "buttonNewGame";
-            this.buttonNewGame.Size = new System.Drawing.Size(130, 46);
-            this.buttonNewGame.TabIndex = 5;
-            this.buttonNewGame.Text = "New Game";
-            this.buttonNewGame.TextColor = System.Drawing.Color.White;
-            this.buttonNewGame.UseVisualStyleBackColor = false;
-            // 
-            // labelTimer
-            // 
-            this.labelTimer.AutoSize = true;
-            this.labelTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTimer.Location = new System.Drawing.Point(375, 67);
-            this.labelTimer.Name = "labelTimer";
-            this.labelTimer.Size = new System.Drawing.Size(86, 20);
-            this.labelTimer.TabIndex = 6;
-            this.labelTimer.Text = "Time: 15s";
-            this.labelTimer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelTimeOver
-            // 
-            this.labelTimeOver.BackColor = System.Drawing.Color.Red;
-            this.labelTimeOver.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTimeOver.ForeColor = System.Drawing.Color.White;
-            this.labelTimeOver.Location = new System.Drawing.Point(353, 231);
-            this.labelTimeOver.Name = "labelTimeOver";
-            this.labelTimeOver.Size = new System.Drawing.Size(130, 50);
-            this.labelTimeOver.TabIndex = 7;
-            this.labelTimeOver.Text = "TIME OVER!";
-            this.labelTimeOver.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // panelPage1
-            // 
-            this.panelPage1.BackColor = System.Drawing.SystemColors.Control;
-            this.panelPage1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelPage1.Controls.Add(this.pictureBoxPage1);
-            this.panelPage1.Controls.Add(this.labelPage1Name);
-            this.panelPage1.Controls.Add(this.buttonHigherPage1);
-            this.panelPage1.Controls.Add(this.labelPage1Likes);
-            this.panelPage1.Location = new System.Drawing.Point(24, 100);
-            this.panelPage1.Name = "panelPage1";
-            this.panelPage1.Size = new System.Drawing.Size(340, 340);
-            this.panelPage1.TabIndex = 8;
-            // 
-            // pictureBoxPage1
-            // 
-            this.pictureBoxPage1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxPage1.BackColor = System.Drawing.Color.White;
-            this.pictureBoxPage1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxPage1.Location = new System.Drawing.Point(65, 45);
-            this.pictureBoxPage1.Name = "pictureBoxPage1";
-            this.pictureBoxPage1.Size = new System.Drawing.Size(210, 210);
-            this.pictureBoxPage1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBoxPage1.TabIndex = 9;
-            this.pictureBoxPage1.TabStop = false;
-            // 
-            // labelPage1Name
-            // 
-            this.labelPage1Name.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelPage1Name.AutoEllipsis = true;
-            this.labelPage1Name.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPage1Name.Location = new System.Drawing.Point(3, 10);
-            this.labelPage1Name.Name = "labelPage1Name";
-            this.labelPage1Name.Size = new System.Drawing.Size(332, 23);
-            this.labelPage1Name.TabIndex = 8;
-            this.labelPage1Name.Text = "Page Name";
-            this.labelPage1Name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // buttonHigherPage1
-            // 
-            this.buttonHigherPage1.BackColor = System.Drawing.Color.RoyalBlue;
-            this.buttonHigherPage1.BackgroundColor = System.Drawing.Color.RoyalBlue;
-            this.buttonHigherPage1.BorderColor = System.Drawing.Color.PaleGreen;
-            this.buttonHigherPage1.BorderRadius = 40;
-            this.buttonHigherPage1.BorderSize = 0;
-            this.buttonHigherPage1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonHigherPage1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonHigherPage1.ForeColor = System.Drawing.Color.White;
-            this.buttonHigherPage1.Location = new System.Drawing.Point(90, 290);
-            this.buttonHigherPage1.Name = "buttonHigherPage1";
-            this.buttonHigherPage1.Size = new System.Drawing.Size(160, 40);
-            this.buttonHigherPage1.TabIndex = 7;
-            this.buttonHigherPage1.Text = "Higher";
-            this.buttonHigherPage1.TextColor = System.Drawing.Color.White;
-            this.buttonHigherPage1.UseVisualStyleBackColor = false;
-            // 
-            // labelPage1Likes
-            // 
-            this.labelPage1Likes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelPage1Likes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPage1Likes.Location = new System.Drawing.Point(3, 261);
-            this.labelPage1Likes.Name = "labelPage1Likes";
-            this.labelPage1Likes.Size = new System.Drawing.Size(332, 23);
-            this.labelPage1Likes.TabIndex = 6;
-            this.labelPage1Likes.Text = "1,000,000 likes";
-            this.labelPage1Likes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelRoundFeedback.BackColor = System.Drawing.Color.Red;
+            this.labelRoundFeedback.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelRoundFeedback.ForeColor = System.Drawing.Color.White;
+            this.labelRoundFeedback.Location = new System.Drawing.Point(353, 231);
+            this.labelRoundFeedback.Name = "labelRoundFeedback";
+            this.labelRoundFeedback.Size = new System.Drawing.Size(130, 50);
+            this.labelRoundFeedback.TabIndex = 7;
+            this.labelRoundFeedback.Text = "TIME OVER!";
+            this.labelRoundFeedback.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panelPage2
             // 
@@ -382,6 +272,116 @@ namespace BasicFacebookFeatures
             this.labelPage2Likes.Text = "1,000,000 likes";
             this.labelPage2Likes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // panelPage1
+            // 
+            this.panelPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.panelPage1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelPage1.Controls.Add(this.pictureBoxPage1);
+            this.panelPage1.Controls.Add(this.labelPage1Name);
+            this.panelPage1.Controls.Add(this.buttonHigherPage1);
+            this.panelPage1.Controls.Add(this.labelPage1Likes);
+            this.panelPage1.Location = new System.Drawing.Point(24, 100);
+            this.panelPage1.Name = "panelPage1";
+            this.panelPage1.Size = new System.Drawing.Size(340, 340);
+            this.panelPage1.TabIndex = 8;
+            // 
+            // pictureBoxPage1
+            // 
+            this.pictureBoxPage1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxPage1.BackColor = System.Drawing.Color.White;
+            this.pictureBoxPage1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxPage1.Location = new System.Drawing.Point(65, 45);
+            this.pictureBoxPage1.Name = "pictureBoxPage1";
+            this.pictureBoxPage1.Size = new System.Drawing.Size(210, 210);
+            this.pictureBoxPage1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxPage1.TabIndex = 9;
+            this.pictureBoxPage1.TabStop = false;
+            // 
+            // labelPage1Name
+            // 
+            this.labelPage1Name.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelPage1Name.AutoEllipsis = true;
+            this.labelPage1Name.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPage1Name.Location = new System.Drawing.Point(3, 10);
+            this.labelPage1Name.Name = "labelPage1Name";
+            this.labelPage1Name.Size = new System.Drawing.Size(332, 23);
+            this.labelPage1Name.TabIndex = 8;
+            this.labelPage1Name.Text = "Page Name";
+            this.labelPage1Name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // buttonHigherPage1
+            // 
+            this.buttonHigherPage1.BackColor = System.Drawing.Color.RoyalBlue;
+            this.buttonHigherPage1.BackgroundColor = System.Drawing.Color.RoyalBlue;
+            this.buttonHigherPage1.BorderColor = System.Drawing.Color.PaleGreen;
+            this.buttonHigherPage1.BorderRadius = 40;
+            this.buttonHigherPage1.BorderSize = 0;
+            this.buttonHigherPage1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonHigherPage1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonHigherPage1.ForeColor = System.Drawing.Color.White;
+            this.buttonHigherPage1.Location = new System.Drawing.Point(90, 290);
+            this.buttonHigherPage1.Name = "buttonHigherPage1";
+            this.buttonHigherPage1.Size = new System.Drawing.Size(160, 40);
+            this.buttonHigherPage1.TabIndex = 7;
+            this.buttonHigherPage1.Text = "Higher";
+            this.buttonHigherPage1.TextColor = System.Drawing.Color.White;
+            this.buttonHigherPage1.UseVisualStyleBackColor = false;
+            // 
+            // labelPage1Likes
+            // 
+            this.labelPage1Likes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelPage1Likes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPage1Likes.Location = new System.Drawing.Point(3, 261);
+            this.labelPage1Likes.Name = "labelPage1Likes";
+            this.labelPage1Likes.Size = new System.Drawing.Size(332, 23);
+            this.labelPage1Likes.TabIndex = 6;
+            this.labelPage1Likes.Text = "1,000,000 likes";
+            this.labelPage1Likes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelTimer
+            // 
+            this.labelTimer.AutoSize = true;
+            this.labelTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTimer.Location = new System.Drawing.Point(375, 67);
+            this.labelTimer.Name = "labelTimer";
+            this.labelTimer.Size = new System.Drawing.Size(86, 20);
+            this.labelTimer.TabIndex = 6;
+            this.labelTimer.Text = "Time: 15s";
+            this.labelTimer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // buttonNewGame
+            // 
+            this.buttonNewGame.BackColor = System.Drawing.Color.RoyalBlue;
+            this.buttonNewGame.BackgroundColor = System.Drawing.Color.RoyalBlue;
+            this.buttonNewGame.BorderColor = System.Drawing.Color.PaleGreen;
+            this.buttonNewGame.BorderRadius = 30;
+            this.buttonNewGame.BorderSize = 0;
+            this.buttonNewGame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonNewGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonNewGame.ForeColor = System.Drawing.Color.White;
+            this.buttonNewGame.Location = new System.Drawing.Point(682, 10);
+            this.buttonNewGame.Name = "buttonNewGame";
+            this.buttonNewGame.Size = new System.Drawing.Size(130, 46);
+            this.buttonNewGame.TabIndex = 5;
+            this.buttonNewGame.Text = "New Game";
+            this.buttonNewGame.TextColor = System.Drawing.Color.White;
+            this.buttonNewGame.UseVisualStyleBackColor = false;
+            // 
+            // labelScore
+            // 
+            this.labelScore.AutoSize = true;
+            this.labelScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelScore.Location = new System.Drawing.Point(20, 26);
+            this.labelScore.Name = "labelScore";
+            this.labelScore.Size = new System.Drawing.Size(76, 20);
+            this.labelScore.TabIndex = 4;
+            this.labelScore.Text = "Score: 0";
+            this.labelScore.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -405,10 +405,10 @@ namespace BasicFacebookFeatures
             this.tabPageHigherLower.ResumeLayout(false);
             this.panelMain.ResumeLayout(false);
             this.panelMain.PerformLayout();
-            this.panelPage1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPage1)).EndInit();
             this.panelPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPage2)).EndInit();
+            this.panelPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPage1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -426,7 +426,7 @@ namespace BasicFacebookFeatures
         private System.Windows.Forms.Label labelScore;
         private RoundedButton buttonNewGame;
         private System.Windows.Forms.Label labelTimer;
-        private System.Windows.Forms.Label labelTimeOver;
+        private System.Windows.Forms.Label labelRoundFeedback;
         private System.Windows.Forms.Panel panelPage2;
         private System.Windows.Forms.PictureBox pictureBoxPage2;
         private System.Windows.Forms.Label labelPage2Name;
