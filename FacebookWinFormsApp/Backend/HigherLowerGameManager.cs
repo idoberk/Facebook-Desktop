@@ -107,7 +107,8 @@ namespace BasicFacebookFeatures.Backend
             {
                 m_GameLogic.StopTimer();
                 resetUiForNewGame();
-                r_ButtonNewGame.Enabled = false;
+                //r_ButtonNewGame.Enabled = false;
+                r_ButtonNewGame.Visible = false;
                 m_UiTimer.Start();
                 m_GameLogic.StartNewGame();
             }
@@ -123,7 +124,8 @@ namespace BasicFacebookFeatures.Backend
 
             stopAndDisposeTimers();
             removeButtonEventHandlers();
-            r_ButtonNewGame.Enabled = true;
+            //r_ButtonNewGame.Enabled = true;
+            r_ButtonNewGame.Visible = true;
         }
 
         private void detachEventHandlers()
@@ -195,7 +197,8 @@ namespace BasicFacebookFeatures.Backend
             r_PictureBoxPage1.ImageLocation = null;
             r_PictureBoxPage2.ImageLocation = null;
 
-            r_ButtonNewGame.Enabled = true;
+            //r_ButtonNewGame.Enabled = true;
+            r_ButtonNewGame.Visible = true;
         }
 
         private void handleGameInitError(Exception i_Exception)
@@ -386,7 +389,8 @@ namespace BasicFacebookFeatures.Backend
             try
             {
                 disableGuessButtons();
-                r_ButtonNewGame.Enabled = true;
+                //r_ButtonNewGame.Enabled = true;
+                r_ButtonNewGame.Visible = true;
                 showGameOverMessage(i_GameOverData.FinalScore);
             }
             catch (Exception ex)
@@ -427,7 +431,8 @@ namespace BasicFacebookFeatures.Backend
 
             if (m_GameLogic.IsGameOver)
             {
-                r_ButtonNewGame.Enabled = true;
+                //r_ButtonNewGame.Enabled = true;
+                r_ButtonNewGame.Visible = true;
             }
 
             r_LabelRoundFeedback.Visible = true;
@@ -437,6 +442,7 @@ namespace BasicFacebookFeatures.Backend
         private void startTimeExpiredTimer()
         {
             Timer timeUpTimer = new Timer();
+
             timeUpTimer.Interval = 1000;
             timeUpTimer.Tick += TimeUpTimer_Tick;
             timeUpTimer.Start();

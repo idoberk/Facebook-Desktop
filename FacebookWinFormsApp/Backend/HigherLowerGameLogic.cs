@@ -12,7 +12,7 @@ namespace BasicFacebookFeatures.Backend
 
     public delegate void TimerTickEventHandler(object sender, TimerEventArgs e);
 
-    public delegate void TimeExpiredEventArgs(object sender, EventArgs e);
+    public delegate void TimeExpiredEventHandler(object sender, EventArgs e);
 
 
     public class HigherLowerGameLogic
@@ -40,8 +40,7 @@ namespace BasicFacebookFeatures.Backend
 
         public event TimerTickEventHandler TimerTick;
 
-        public event TimeExpiredEventArgs TimeExpired;
-
+        public event TimeExpiredEventHandler TimeExpired;
 
         public int Score
         {

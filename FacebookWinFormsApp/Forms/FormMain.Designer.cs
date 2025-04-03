@@ -36,9 +36,11 @@ namespace BasicFacebookFeatures
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.tabControl1 = new BasicFacebookFeatures.CustomControls.CustomTabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.textBoxUserInfo = new System.Windows.Forms.TextBox();
+            this.listBoxUserInfo = new System.Windows.Forms.ListBox();
+            this.labelUserName = new BasicFacebookFeatures.CustomControls.RoundedLabel();
             this.profilePictureBox = new BasicFacebookFeatures.CustomControls.CircularPictureBox();
             this.buttonLogout = new BasicFacebookFeatures.CustomControls.RoundedButton();
-            this.labelUserName = new System.Windows.Forms.Label();
             this.coverPictureBox = new System.Windows.Forms.PictureBox();
             this.tabPageHigherLower = new System.Windows.Forms.TabPage();
             this.panelMain = new System.Windows.Forms.Panel();
@@ -94,9 +96,11 @@ namespace BasicFacebookFeatures
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Transparent;
             this.tabPage1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tabPage1.Controls.Add(this.textBoxUserInfo);
+            this.tabPage1.Controls.Add(this.listBoxUserInfo);
+            this.tabPage1.Controls.Add(this.labelUserName);
             this.tabPage1.Controls.Add(this.profilePictureBox);
             this.tabPage1.Controls.Add(this.buttonLogout);
-            this.tabPage1.Controls.Add(this.labelUserName);
             this.tabPage1.Controls.Add(this.coverPictureBox);
             this.tabPage1.ImageIndex = 0;
             this.tabPage1.Location = new System.Drawing.Point(4, 31);
@@ -104,6 +108,46 @@ namespace BasicFacebookFeatures
             this.tabPage1.Size = new System.Drawing.Size(842, 522);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.ToolTipText = "Profile Page";
+            // 
+            // textBoxUserInfo
+            // 
+            this.textBoxUserInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxUserInfo.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxUserInfo.Location = new System.Drawing.Point(8, 325);
+            this.textBoxUserInfo.Multiline = true;
+            this.textBoxUserInfo.Name = "textBoxUserInfo";
+            this.textBoxUserInfo.ReadOnly = true;
+            this.textBoxUserInfo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxUserInfo.Size = new System.Drawing.Size(324, 81);
+            this.textBoxUserInfo.TabIndex = 66;
+            // 
+            // listBoxUserInfo
+            // 
+            this.listBoxUserInfo.FormattingEnabled = true;
+            this.listBoxUserInfo.ItemHeight = 18;
+            this.listBoxUserInfo.Location = new System.Drawing.Point(447, 281);
+            this.listBoxUserInfo.Name = "listBoxUserInfo";
+            this.listBoxUserInfo.Size = new System.Drawing.Size(137, 58);
+            this.listBoxUserInfo.TabIndex = 65;
+            // 
+            // labelUserName
+            // 
+            this.labelUserName.AutoSize = true;
+            this.labelUserName.BackColor = System.Drawing.Color.Transparent;
+            this.labelUserName.BackgroundColor = System.Drawing.Color.Transparent;
+            this.labelUserName.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.labelUserName.BorderRadius = 25;
+            this.labelUserName.BorderSize = 0;
+            this.labelUserName.BorderVisible = true;
+            this.labelUserName.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelUserName.ForeColor = System.Drawing.Color.Black;
+            this.labelUserName.Location = new System.Drawing.Point(442, 241);
+            this.labelUserName.Name = "labelUserName";
+            this.labelUserName.Padding = new System.Windows.Forms.Padding(5);
+            this.labelUserName.Size = new System.Drawing.Size(142, 37);
+            this.labelUserName.TabIndex = 64;
+            this.labelUserName.Text = "User Name";
+            this.labelUserName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // profilePictureBox
             // 
@@ -142,17 +186,6 @@ namespace BasicFacebookFeatures
             this.buttonLogout.TextColor = System.Drawing.Color.White;
             this.buttonLogout.UseVisualStyleBackColor = false;
             this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
-            // 
-            // labelUserName
-            // 
-            this.labelUserName.AutoSize = true;
-            this.labelUserName.Font = new System.Drawing.Font("Arial", 18F);
-            this.labelUserName.Location = new System.Drawing.Point(442, 241);
-            this.labelUserName.Name = "labelUserName";
-            this.labelUserName.Size = new System.Drawing.Size(184, 27);
-            this.labelUserName.TabIndex = 59;
-            this.labelUserName.Text = "User name here";
-            this.labelUserName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // coverPictureBox
             // 
@@ -397,6 +430,8 @@ namespace BasicFacebookFeatures
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Facebook DP Course";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
+            this.Load += new System.EventHandler(this.FormMain_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -419,7 +454,6 @@ namespace BasicFacebookFeatures
 		private System.Windows.Forms.TabPage tabPageHigherLower;
         private System.Windows.Forms.PictureBox coverPictureBox;
         private System.Windows.Forms.ImageList imageList1;
-        private System.Windows.Forms.Label labelUserName;
         private RoundedButton buttonLogout;
         private CircularPictureBox profilePictureBox;
         private System.Windows.Forms.Panel panelMain;
@@ -437,6 +471,9 @@ namespace BasicFacebookFeatures
         private System.Windows.Forms.Label labelPage1Name;
         private RoundedButton buttonHigherPage1;
         private System.Windows.Forms.Label labelPage1Likes;
+        private RoundedLabel labelUserName;
+        private System.Windows.Forms.ListBox listBoxUserInfo;
+        private System.Windows.Forms.TextBox textBoxUserInfo;
     }
 }
 
