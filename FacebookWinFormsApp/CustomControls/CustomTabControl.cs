@@ -1,8 +1,7 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
-namespace BasicFacebookFeatures.CustomControls
+namespace FacebookDPApp.CustomControls
 {
     public class CustomTabControl : TabControl
     {
@@ -29,6 +28,7 @@ namespace BasicFacebookFeatures.CustomControls
                     Image image = tabControl.ImageList.Images[tabControl.TabPages[e.Index].ImageIndex];
                     float x = tabRect.Left + (tabRect.Width - image.Width) / 2.0f;
                     float y = tabRect.Top + (tabRect.Height - image.Height) / 2.0f;
+
                     e.Graphics.DrawImage(image, x, y);
                 }
             }

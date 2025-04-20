@@ -1,7 +1,7 @@
 ﻿using System;
 using FacebookWrapper.ObjectModel;
 
-namespace BasicFacebookFeatures.Backend
+namespace FacebookDPApp.Backend
 {
     public class PageSelectedEventArgs : EventArgs
     {

@@ -1,10 +1,9 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-namespace BasicFacebookFeatures.CustomControls
+namespace FacebookDPApp.CustomControls
 {
     public class RoundedLabel : Label
     {
@@ -19,7 +18,7 @@ namespace BasicFacebookFeatures.CustomControls
             get { return m_BorderRadius; }
             set
             {
-                if(value >= 0)
+                if (value >= 0)
                 {
                     m_BorderRadius = value;
                     Invalidate();
@@ -42,7 +41,7 @@ namespace BasicFacebookFeatures.CustomControls
             get { return m_BorderSize; }
             set
             {
-                if(value >= 0)
+                if (value >= 0)
                 {
                     m_BorderSize = value;
                     Invalidate();
@@ -89,26 +88,20 @@ namespace BasicFacebookFeatures.CustomControls
 
             GraphicsPath path = createRoundedRectanglePath(ClientRectangle, m_BorderRadius);
 
-            using(SolidBrush brush = new SolidBrush(m_BackgroundColor))
+            using (SolidBrush brush = new SolidBrush(m_BackgroundColor))
             {
                 e.Graphics.FillPath(brush, path);
             }
 
-            if(m_BorderVisible && m_BorderSize > 0)
+            if (m_BorderVisible && m_BorderSize > 0)
             {
-                using(Pen pen = new Pen(m_BorderColor, m_BorderSize))
+                using (Pen pen = new Pen(m_BorderColor, m_BorderSize))
                 {
                     e.Graphics.DrawPath(pen, path);
                 }
             }
 
-            TextRenderer.DrawText(
-                e.Graphics,
-                Text,
-                Font,
-                ClientRectangle,
-                ForeColor,
-                getTextFormatFlags(TextAlign));
+            TextRenderer.DrawText(e.Graphics, Text, Font, ClientRectangle, ForeColor, getTextFormatFlags(TextAlign));
 
             path.Dispose();
         }
@@ -126,7 +119,7 @@ namespace BasicFacebookFeatures.CustomControls
 
             int limitedRadius = Math.Min(radius, Math.Min(adjustedRect.Width, adjustedRect.Height) / 2);
 
-            if(limitedRadius == 0)
+            if (limitedRadius == 0)
             {
                 path.AddRectangle(adjustedRect);
                 return path;
@@ -135,9 +128,21 @@ namespace BasicFacebookFeatures.CustomControls
             int diameter = limitedRadius * 2;
 
             Rectangle topLeftCorner = new Rectangle(adjustedRect.X, adjustedRect.Y, diameter, diameter);
-            Rectangle topRightCorner = new Rectangle(adjustedRect.X + adjustedRect.Width - diameter, adjustedRect.Y, diameter, diameter);
-            Rectangle bottomLeftCorner = new Rectangle(adjustedRect.X, adjustedRect.Y + adjustedRect.Height - diameter, diameter, diameter);
-            Rectangle bottomRightCorner = new Rectangle(adjustedRect.X + adjustedRect.Width - diameter, adjustedRect.Y + adjustedRect.Height - diameter, diameter, diameter);
+            Rectangle topRightCorner = new Rectangle(
+                adjustedRect.X + adjustedRect.Width - diameter,
+                adjustedRect.Y,
+                diameter,
+                diameter);
+            Rectangle bottomLeftCorner = new Rectangle(
+                adjustedRect.X,
+                adjustedRect.Y + adjustedRect.Height - diameter,
+                diameter,
+                diameter);
+            Rectangle bottomRightCorner = new Rectangle(
+                adjustedRect.X + adjustedRect.Width - diameter,
+                adjustedRect.Y + adjustedRect.Height - diameter,
+                diameter,
+                diameter);
 
             path.AddArc(topLeftCorner, 180, 90);
             path.AddArc(topRightCorner, 270, 90);
@@ -153,16 +158,19 @@ namespace BasicFacebookFeatures.CustomControls
         {
             TextFormatFlags flags = TextFormatFlags.WordBreak;
 
-            if((alignment & (ContentAlignment.TopLeft | ContentAlignment.MiddleLeft | ContentAlignment.BottomLeft)) != 0)
+            if ((alignment & (ContentAlignment.TopLeft | ContentAlignment.MiddleLeft | ContentAlignment.BottomLeft))
+                != 0)
                 flags |= TextFormatFlags.Left;
-            else if((alignment & (ContentAlignment.TopRight | ContentAlignment.MiddleRight | ContentAlignment.BottomRight)) != 0)
+            else if ((alignment & (ContentAlignment.TopRight | ContentAlignment.MiddleRight
+                                                             | ContentAlignment.BottomRight)) != 0)
                 flags |= TextFormatFlags.Right;
             else
                 flags |= TextFormatFlags.HorizontalCenter;
 
-            if((alignment & (ContentAlignment.TopLeft | ContentAlignment.TopCenter | ContentAlignment.TopRight)) != 0)
+            if ((alignment & (ContentAlignment.TopLeft | ContentAlignment.TopCenter | ContentAlignment.TopRight)) != 0)
                 flags |= TextFormatFlags.Top;
-            else if((alignment & (ContentAlignment.BottomLeft | ContentAlignment.BottomCenter | ContentAlignment.BottomRight)) != 0)
+            else if ((alignment & (ContentAlignment.BottomLeft | ContentAlignment.BottomCenter
+                                                               | ContentAlignment.BottomRight)) != 0)
                 flags |= TextFormatFlags.Bottom;
             else
                 flags |= TextFormatFlags.VerticalCenter;

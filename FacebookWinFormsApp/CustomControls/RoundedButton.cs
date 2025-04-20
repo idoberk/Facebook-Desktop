@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using FacebookWrapper.ObjectModel;
 
-namespace BasicFacebookFeatures.CustomControls
+namespace FacebookDPApp.CustomControls
 {
     public class RoundedButton : Button
     {
@@ -18,10 +13,7 @@ namespace BasicFacebookFeatures.CustomControls
 
         public int BorderSize
         {
-            get
-            {
-                return m_BorderSize;
-            }
+            get { return m_BorderSize; }
             set
             {
                 m_BorderSize = value;
@@ -31,10 +23,7 @@ namespace BasicFacebookFeatures.CustomControls
 
         public int BorderRadius
         {
-            get
-            {
-                return m_BorderRadius;
-            }
+            get { return m_BorderRadius; }
             set
             {
                 if (this.Height >= value)
@@ -45,17 +34,14 @@ namespace BasicFacebookFeatures.CustomControls
                 {
                     m_BorderRadius = this.Height;
                 }
-                
+
                 this.Invalidate();
             }
         }
 
         public Color BorderColor
         {
-            get
-            {
-                return m_BorderColor;
-            }
+            get { return m_BorderColor; }
             set
             {
                 m_BorderColor = value;
@@ -65,10 +51,7 @@ namespace BasicFacebookFeatures.CustomControls
 
         public Color BackgroundColor
         {
-            get
-            {
-                return this.BackColor;
-            }
+            get { return this.BackColor; }
             set
             {
                 this.BackColor = value;
@@ -78,10 +61,7 @@ namespace BasicFacebookFeatures.CustomControls
 
         public Color TextColor
         {
-            get
-            {
-                return this.ForeColor;
-            }
+            get { return this.ForeColor; }
             set
             {
                 this.ForeColor = value;
@@ -151,7 +131,6 @@ namespace BasicFacebookFeatures.CustomControls
                     {
                         pe.Graphics.DrawPath(penBorder, pathBorder);
                     }
-
                 }
                 finally
                 {

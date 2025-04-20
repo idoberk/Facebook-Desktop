@@ -1,7 +1,8 @@
 ﻿using System.Drawing;
-using BasicFacebookFeatures.CustomControls;
+using System.Windows.Forms;
+using FacebookDPApp.CustomControls;
 
-namespace BasicFacebookFeatures
+namespace FacebookDPApp.Forms
 {
     partial class FormMain
     {
@@ -23,6 +24,7 @@ namespace BasicFacebookFeatures
             base.Dispose(disposing);
         }
 
+       
         #region Windows Form Designer generated code
 
         /// <summary>
@@ -34,32 +36,45 @@ namespace BasicFacebookFeatures
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.tabControl1 = new BasicFacebookFeatures.CustomControls.CustomTabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.textBoxUserInfo = new System.Windows.Forms.TextBox();
-            this.listBoxUserInfo = new System.Windows.Forms.ListBox();
-            this.labelUserName = new BasicFacebookFeatures.CustomControls.RoundedLabel();
-            this.profilePictureBox = new BasicFacebookFeatures.CustomControls.CircularPictureBox();
-            this.buttonLogout = new BasicFacebookFeatures.CustomControls.RoundedButton();
+            this.tabControl = new FacebookDPApp.CustomControls.CustomTabControl();
+            this.tabPageHome = new System.Windows.Forms.TabPage();
+            this.buttonFetchAlbums = new FacebookDPApp.CustomControls.RoundedButton();
+            this.buttonFetchPosts = new FacebookDPApp.CustomControls.RoundedButton();
+            this.listBoxPosts = new System.Windows.Forms.ListBox();
+            this.labelSortPosts = new System.Windows.Forms.Label();
+            this.comboBoxSortingOptions = new System.Windows.Forms.ComboBox();
+            this.buttonSubmitPost = new FacebookDPApp.CustomControls.RoundedButton();
+            this.pictureBoxAlbums = new System.Windows.Forms.PictureBox();
+            this.textBoxFillStatus = new System.Windows.Forms.TextBox();
+            this.listBoxAlbums = new System.Windows.Forms.ListBox();
+            this.buttonLogout = new FacebookDPApp.CustomControls.RoundedButton();
+            this.tabPageProfile = new System.Windows.Forms.TabPage();
+            this.textBoxSearchFriends = new System.Windows.Forms.TextBox();
+            this.listBoxFriendsList = new System.Windows.Forms.ListBox();
+            this.profilePictureBox = new FacebookDPApp.CustomControls.CircularPictureBox();
+            this.labelUserName = new FacebookDPApp.CustomControls.RoundedLabel();
             this.coverPictureBox = new System.Windows.Forms.PictureBox();
+            this.listBoxUserInfo = new System.Windows.Forms.ListBox();
             this.tabPageHigherLower = new System.Windows.Forms.TabPage();
             this.panelMain = new System.Windows.Forms.Panel();
             this.labelRoundFeedback = new System.Windows.Forms.Label();
             this.panelPage2 = new System.Windows.Forms.Panel();
             this.pictureBoxPage2 = new System.Windows.Forms.PictureBox();
             this.labelPage2Name = new System.Windows.Forms.Label();
-            this.buttonHigherPage2 = new BasicFacebookFeatures.CustomControls.RoundedButton();
+            this.buttonHigherPage2 = new FacebookDPApp.CustomControls.RoundedButton();
             this.labelPage2Likes = new System.Windows.Forms.Label();
             this.panelPage1 = new System.Windows.Forms.Panel();
             this.pictureBoxPage1 = new System.Windows.Forms.PictureBox();
             this.labelPage1Name = new System.Windows.Forms.Label();
-            this.buttonHigherPage1 = new BasicFacebookFeatures.CustomControls.RoundedButton();
+            this.buttonHigherPage1 = new FacebookDPApp.CustomControls.RoundedButton();
             this.labelPage1Likes = new System.Windows.Forms.Label();
             this.labelTimer = new System.Windows.Forms.Label();
-            this.buttonNewGame = new BasicFacebookFeatures.CustomControls.RoundedButton();
+            this.buttonNewGame = new FacebookDPApp.CustomControls.RoundedButton();
             this.labelScore = new System.Windows.Forms.Label();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tabControl.SuspendLayout();
+            this.tabPageHome.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAlbums)).BeginInit();
+            this.tabPageProfile.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.profilePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.coverPictureBox)).BeginInit();
             this.tabPageHigherLower.SuspendLayout();
@@ -74,61 +89,268 @@ namespace BasicFacebookFeatures
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "profile_icon.png");
+            this.imageList1.Images.SetKeyName(0, "home-icon.png");
+            this.imageList1.Images.SetKeyName(1, "user-solid.png");
+            this.imageList1.Images.SetKeyName(2, "game-icon.png");
             // 
-            // tabControl1
+            // tabControl
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPageHigherLower);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
-            this.tabControl1.ImageList = this.imageList1;
-            this.tabControl1.ItemSize = new System.Drawing.Size(60, 27);
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.ShowToolTips = true;
-            this.tabControl1.Size = new System.Drawing.Size(850, 557);
-            this.tabControl1.TabIndex = 54;
-            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
+            this.tabControl.Controls.Add(this.tabPageHome);
+            this.tabControl.Controls.Add(this.tabPageProfile);
+            this.tabControl.Controls.Add(this.tabPageHigherLower);
+            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
+            this.tabControl.Font = new System.Drawing.Font("Arial", 8.25F);
+            this.tabControl.ImageList = this.imageList1;
+            this.tabControl.ItemSize = new System.Drawing.Size(150, 27);
+            this.tabControl.Location = new System.Drawing.Point(0, 0);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.Padding = new System.Drawing.Point(0, 0);
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.ShowToolTips = true;
+            this.tabControl.Size = new System.Drawing.Size(850, 557);
+            this.tabControl.TabIndex = 54;
+            this.tabControl.SelectedIndexChanged += new System.EventHandler(this.tabControl_SelectedIndexChanged);
             // 
-            // tabPage1
+            // tabPageHome
             // 
-            this.tabPage1.BackColor = System.Drawing.Color.Transparent;
-            this.tabPage1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.tabPage1.Controls.Add(this.textBoxUserInfo);
-            this.tabPage1.Controls.Add(this.listBoxUserInfo);
-            this.tabPage1.Controls.Add(this.labelUserName);
-            this.tabPage1.Controls.Add(this.profilePictureBox);
-            this.tabPage1.Controls.Add(this.buttonLogout);
-            this.tabPage1.Controls.Add(this.coverPictureBox);
-            this.tabPage1.ImageIndex = 0;
-            this.tabPage1.Location = new System.Drawing.Point(4, 31);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(842, 522);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.ToolTipText = "Profile Page";
+            this.tabPageHome.BackColor = System.Drawing.Color.Transparent;
+            this.tabPageHome.Controls.Add(this.buttonFetchAlbums);
+            this.tabPageHome.Controls.Add(this.buttonFetchPosts);
+            this.tabPageHome.Controls.Add(this.listBoxPosts);
+            this.tabPageHome.Controls.Add(this.labelSortPosts);
+            this.tabPageHome.Controls.Add(this.comboBoxSortingOptions);
+            this.tabPageHome.Controls.Add(this.buttonSubmitPost);
+            this.tabPageHome.Controls.Add(this.pictureBoxAlbums);
+            this.tabPageHome.Controls.Add(this.textBoxFillStatus);
+            this.tabPageHome.Controls.Add(this.listBoxAlbums);
+            this.tabPageHome.Controls.Add(this.buttonLogout);
+            this.tabPageHome.ImageIndex = 0;
+            this.tabPageHome.Location = new System.Drawing.Point(4, 31);
+            this.tabPageHome.Name = "tabPageHome";
+            this.tabPageHome.Size = new System.Drawing.Size(842, 522);
+            this.tabPageHome.TabIndex = 0;
+            this.tabPageHome.ToolTipText = "Home";
+            this.tabPageHome.UseVisualStyleBackColor = true;
+            this.tabPageHome.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tabPageHome_MouseDown);
             // 
-            // textBoxUserInfo
+            // buttonFetchAlbums
             // 
-            this.textBoxUserInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxUserInfo.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxUserInfo.Location = new System.Drawing.Point(8, 325);
-            this.textBoxUserInfo.Multiline = true;
-            this.textBoxUserInfo.Name = "textBoxUserInfo";
-            this.textBoxUserInfo.ReadOnly = true;
-            this.textBoxUserInfo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxUserInfo.Size = new System.Drawing.Size(324, 81);
-            this.textBoxUserInfo.TabIndex = 66;
+            this.buttonFetchAlbums.BackColor = System.Drawing.Color.DodgerBlue;
+            this.buttonFetchAlbums.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.buttonFetchAlbums.BorderColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonFetchAlbums.BorderRadius = 10;
+            this.buttonFetchAlbums.BorderSize = 3;
+            this.buttonFetchAlbums.FlatAppearance.BorderSize = 0;
+            this.buttonFetchAlbums.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonFetchAlbums.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.buttonFetchAlbums.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonFetchAlbums.Location = new System.Drawing.Point(8, 254);
+            this.buttonFetchAlbums.Name = "buttonFetchAlbums";
+            this.buttonFetchAlbums.Size = new System.Drawing.Size(145, 30);
+            this.buttonFetchAlbums.TabIndex = 73;
+            this.buttonFetchAlbums.Text = "Fetch Albums";
+            this.buttonFetchAlbums.TextColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonFetchAlbums.UseVisualStyleBackColor = false;
+            this.buttonFetchAlbums.Click += new System.EventHandler(this.buttonFetchAlbums_Click);
             // 
-            // listBoxUserInfo
+            // buttonFetchPosts
             // 
-            this.listBoxUserInfo.FormattingEnabled = true;
-            this.listBoxUserInfo.ItemHeight = 18;
-            this.listBoxUserInfo.Location = new System.Drawing.Point(447, 281);
-            this.listBoxUserInfo.Name = "listBoxUserInfo";
-            this.listBoxUserInfo.Size = new System.Drawing.Size(137, 58);
-            this.listBoxUserInfo.TabIndex = 65;
+            this.buttonFetchPosts.BackColor = System.Drawing.Color.DodgerBlue;
+            this.buttonFetchPosts.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.buttonFetchPosts.BorderColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonFetchPosts.BorderRadius = 10;
+            this.buttonFetchPosts.BorderSize = 3;
+            this.buttonFetchPosts.FlatAppearance.BorderSize = 0;
+            this.buttonFetchPosts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonFetchPosts.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonFetchPosts.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonFetchPosts.Location = new System.Drawing.Point(8, 64);
+            this.buttonFetchPosts.Name = "buttonFetchPosts";
+            this.buttonFetchPosts.Size = new System.Drawing.Size(145, 30);
+            this.buttonFetchPosts.TabIndex = 72;
+            this.buttonFetchPosts.Text = "Fetch Posts";
+            this.buttonFetchPosts.TextColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonFetchPosts.UseVisualStyleBackColor = false;
+            this.buttonFetchPosts.Click += new System.EventHandler(this.buttonFetchPosts_Click);
+            // 
+            // listBoxPosts
+            // 
+            this.listBoxPosts.Font = new System.Drawing.Font("Arial", 9F);
+            this.listBoxPosts.FormattingEnabled = true;
+            this.listBoxPosts.ItemHeight = 15;
+            this.listBoxPosts.Location = new System.Drawing.Point(8, 99);
+            this.listBoxPosts.Name = "listBoxPosts";
+            this.listBoxPosts.Size = new System.Drawing.Size(640, 124);
+            this.listBoxPosts.TabIndex = 59;
+            this.listBoxPosts.Leave += new System.EventHandler(this.listBox_Leave);
+            // 
+            // labelSortPosts
+            // 
+            this.labelSortPosts.AutoSize = true;
+            this.labelSortPosts.Font = new System.Drawing.Font("Arial", 12F);
+            this.labelSortPosts.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.labelSortPosts.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelSortPosts.Location = new System.Drawing.Point(654, 99);
+            this.labelSortPosts.Name = "labelSortPosts";
+            this.labelSortPosts.Size = new System.Drawing.Size(63, 18);
+            this.labelSortPosts.TabIndex = 71;
+            this.labelSortPosts.Text = "Sort By:";
+            // 
+            // comboBoxSortingOptions
+            // 
+            this.comboBoxSortingOptions.BackColor = System.Drawing.SystemColors.HighlightText;
+            this.comboBoxSortingOptions.Cursor = System.Windows.Forms.Cursors.Default;
+            this.comboBoxSortingOptions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxSortingOptions.Font = new System.Drawing.Font("Arial", 9F);
+            this.comboBoxSortingOptions.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.comboBoxSortingOptions.FormattingEnabled = true;
+            this.comboBoxSortingOptions.Items.AddRange(new object[] {
+            "Alphabet (Ascending)",
+            "Alphabet (Descending)",
+            "Creation Time (Ascending)",
+            "Creation Time (Descending)",
+            "Likes Amount (Ascending)",
+            "Likes Amount (Descending)"});
+            this.comboBoxSortingOptions.Location = new System.Drawing.Point(654, 120);
+            this.comboBoxSortingOptions.Name = "comboBoxSortingOptions";
+            this.comboBoxSortingOptions.Size = new System.Drawing.Size(180, 23);
+            this.comboBoxSortingOptions.TabIndex = 70;
+            this.comboBoxSortingOptions.SelectedIndexChanged += new System.EventHandler(this.comboBoxSortingOptions_SelectedIndexChanged);
+            // 
+            // buttonSubmitPost
+            // 
+            this.buttonSubmitPost.BackColor = System.Drawing.Color.DodgerBlue;
+            this.buttonSubmitPost.BackgroundColor = System.Drawing.Color.DodgerBlue;
+            this.buttonSubmitPost.BorderColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonSubmitPost.BorderRadius = 10;
+            this.buttonSubmitPost.BorderSize = 3;
+            this.buttonSubmitPost.Enabled = false;
+            this.buttonSubmitPost.FlatAppearance.BorderSize = 0;
+            this.buttonSubmitPost.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSubmitPost.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSubmitPost.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonSubmitPost.Location = new System.Drawing.Point(439, 15);
+            this.buttonSubmitPost.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonSubmitPost.Name = "buttonSubmitPost";
+            this.buttonSubmitPost.Size = new System.Drawing.Size(100, 30);
+            this.buttonSubmitPost.TabIndex = 64;
+            this.buttonSubmitPost.Text = "Post";
+            this.buttonSubmitPost.TextColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonSubmitPost.UseVisualStyleBackColor = false;
+            this.buttonSubmitPost.Click += new System.EventHandler(this.buttonSubmitPost_Click);
+            // 
+            // pictureBoxAlbums
+            // 
+            this.pictureBoxAlbums.Location = new System.Drawing.Point(340, 290);
+            this.pictureBoxAlbums.Name = "pictureBoxAlbums";
+            this.pictureBoxAlbums.Size = new System.Drawing.Size(249, 191);
+            this.pictureBoxAlbums.TabIndex = 63;
+            this.pictureBoxAlbums.TabStop = false;
+            // 
+            // textBoxFillStatus
+            // 
+            this.textBoxFillStatus.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxFillStatus.ForeColor = System.Drawing.SystemColors.ScrollBar;
+            this.textBoxFillStatus.Location = new System.Drawing.Point(8, 15);
+            this.textBoxFillStatus.Multiline = true;
+            this.textBoxFillStatus.Name = "textBoxFillStatus";
+            this.textBoxFillStatus.Size = new System.Drawing.Size(428, 30);
+            this.textBoxFillStatus.TabIndex = 61;
+            this.textBoxFillStatus.Text = "What\'s on your mind? Share your thoughts with the community!";
+            this.textBoxFillStatus.MouseClick += new System.Windows.Forms.MouseEventHandler(this.textBoxFillStatus_Clicked);
+            this.textBoxFillStatus.TextChanged += new System.EventHandler(this.textBoxFillStatus_TextChanged);
+            // 
+            // listBoxAlbums
+            // 
+            this.listBoxAlbums.Font = new System.Drawing.Font("Arial", 11F);
+            this.listBoxAlbums.FormattingEnabled = true;
+            this.listBoxAlbums.ItemHeight = 17;
+            this.listBoxAlbums.Location = new System.Drawing.Point(8, 290);
+            this.listBoxAlbums.Name = "listBoxAlbums";
+            this.listBoxAlbums.Size = new System.Drawing.Size(326, 191);
+            this.listBoxAlbums.TabIndex = 56;
+            this.listBoxAlbums.SelectedIndexChanged += new System.EventHandler(this.listBoxAlbums_SelectedIndexChanged);
+            // 
+            // buttonLogout
+            // 
+            this.buttonLogout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonLogout.BackColor = System.Drawing.Color.Red;
+            this.buttonLogout.BackgroundColor = System.Drawing.Color.Red;
+            this.buttonLogout.BorderColor = System.Drawing.Color.Empty;
+            this.buttonLogout.BorderRadius = 25;
+            this.buttonLogout.BorderSize = 0;
+            this.buttonLogout.FlatAppearance.BorderSize = 0;
+            this.buttonLogout.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Brown;
+            this.buttonLogout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Firebrick;
+            this.buttonLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonLogout.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonLogout.ForeColor = System.Drawing.Color.White;
+            this.buttonLogout.Location = new System.Drawing.Point(657, 474);
+            this.buttonLogout.Name = "buttonLogout";
+            this.buttonLogout.Size = new System.Drawing.Size(177, 40);
+            this.buttonLogout.TabIndex = 62;
+            this.buttonLogout.Text = "Logout";
+            this.buttonLogout.TextColor = System.Drawing.Color.White;
+            this.buttonLogout.UseVisualStyleBackColor = false;
+            this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
+            // 
+            // tabPageProfile
+            // 
+            this.tabPageProfile.BackColor = System.Drawing.Color.Transparent;
+            this.tabPageProfile.Controls.Add(this.textBoxSearchFriends);
+            this.tabPageProfile.Controls.Add(this.listBoxFriendsList);
+            this.tabPageProfile.Controls.Add(this.profilePictureBox);
+            this.tabPageProfile.Controls.Add(this.labelUserName);
+            this.tabPageProfile.Controls.Add(this.coverPictureBox);
+            this.tabPageProfile.Controls.Add(this.listBoxUserInfo);
+            this.tabPageProfile.ImageIndex = 1;
+            this.tabPageProfile.Location = new System.Drawing.Point(4, 31);
+            this.tabPageProfile.Name = "tabPageProfile";
+            this.tabPageProfile.Size = new System.Drawing.Size(842, 522);
+            this.tabPageProfile.TabIndex = 2;
+            this.tabPageProfile.ToolTipText = "Profile";
+            this.tabPageProfile.UseVisualStyleBackColor = true;
+            // 
+            // textBoxSearchFriends
+            // 
+            this.textBoxSearchFriends.Font = new System.Drawing.Font("Arial", 11F);
+            this.textBoxSearchFriends.ForeColor = System.Drawing.SystemColors.ScrollBar;
+            this.textBoxSearchFriends.Location = new System.Drawing.Point(574, 301);
+            this.textBoxSearchFriends.MaxLength = 30;
+            this.textBoxSearchFriends.Name = "textBoxSearchFriends";
+            this.textBoxSearchFriends.Size = new System.Drawing.Size(260, 24);
+            this.textBoxSearchFriends.TabIndex = 67;
+            this.textBoxSearchFriends.Text = "Search Friends...";
+            this.textBoxSearchFriends.MouseClick += new System.Windows.Forms.MouseEventHandler(this.textBoxSearchFriends_MouseClick);
+            this.textBoxSearchFriends.TextChanged += new System.EventHandler(this.textBoxSearchFriends_TextChanged);
+            this.textBoxSearchFriends.Leave += new System.EventHandler(this.textBoxSearchFriends_Leave);
+            // 
+            // listBoxFriendsList
+            // 
+            this.listBoxFriendsList.Font = new System.Drawing.Font("Arial", 11F);
+            this.listBoxFriendsList.FormattingEnabled = true;
+            this.listBoxFriendsList.ItemHeight = 17;
+            this.listBoxFriendsList.Location = new System.Drawing.Point(574, 331);
+            this.listBoxFriendsList.Name = "listBoxFriendsList";
+            this.listBoxFriendsList.SelectionMode = System.Windows.Forms.SelectionMode.None;
+            this.listBoxFriendsList.Size = new System.Drawing.Size(260, 72);
+            this.listBoxFriendsList.TabIndex = 66;
+            // 
+            // profilePictureBox
+            // 
+            this.profilePictureBox.BorderCapStyle = System.Drawing.Drawing2D.DashCap.Flat;
+            this.profilePictureBox.BorderLineStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            this.profilePictureBox.BorderSize = 5;
+            this.profilePictureBox.FirstBorderColor = System.Drawing.Color.DodgerBlue;
+            this.profilePictureBox.GradientAngle = 270F;
+            this.profilePictureBox.Location = new System.Drawing.Point(286, 169);
+            this.profilePictureBox.Name = "profilePictureBox";
+            this.profilePictureBox.SecondBorderColor = System.Drawing.Color.Transparent;
+            this.profilePictureBox.Size = new System.Drawing.Size(150, 150);
+            this.profilePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.profilePictureBox.TabIndex = 63;
+            this.profilePictureBox.TabStop = false;
             // 
             // labelUserName
             // 
@@ -149,44 +371,6 @@ namespace BasicFacebookFeatures
             this.labelUserName.Text = "User Name";
             this.labelUserName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // profilePictureBox
-            // 
-            this.profilePictureBox.BorderCapStyle = System.Drawing.Drawing2D.DashCap.Flat;
-            this.profilePictureBox.BorderLineStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            this.profilePictureBox.BorderSize = 5;
-            this.profilePictureBox.FirstBorderColor = System.Drawing.Color.DodgerBlue;
-            this.profilePictureBox.GradientAngle = 270F;
-            this.profilePictureBox.Location = new System.Drawing.Point(286, 169);
-            this.profilePictureBox.Name = "profilePictureBox";
-            this.profilePictureBox.SecondBorderColor = System.Drawing.Color.Transparent;
-            this.profilePictureBox.Size = new System.Drawing.Size(150, 150);
-            this.profilePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.profilePictureBox.TabIndex = 63;
-            this.profilePictureBox.TabStop = false;
-            // 
-            // buttonLogout
-            // 
-            this.buttonLogout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonLogout.BackColor = System.Drawing.Color.Red;
-            this.buttonLogout.BackgroundColor = System.Drawing.Color.Red;
-            this.buttonLogout.BorderColor = System.Drawing.Color.Empty;
-            this.buttonLogout.BorderRadius = 25;
-            this.buttonLogout.BorderSize = 0;
-            this.buttonLogout.FlatAppearance.BorderSize = 0;
-            this.buttonLogout.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Brown;
-            this.buttonLogout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Firebrick;
-            this.buttonLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonLogout.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonLogout.ForeColor = System.Drawing.Color.White;
-            this.buttonLogout.Location = new System.Drawing.Point(8, 474);
-            this.buttonLogout.Name = "buttonLogout";
-            this.buttonLogout.Size = new System.Drawing.Size(177, 40);
-            this.buttonLogout.TabIndex = 62;
-            this.buttonLogout.Text = "Logout";
-            this.buttonLogout.TextColor = System.Drawing.Color.White;
-            this.buttonLogout.UseVisualStyleBackColor = false;
-            this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
-            // 
             // coverPictureBox
             // 
             this.coverPictureBox.Dock = System.Windows.Forms.DockStyle.Top;
@@ -197,10 +381,22 @@ namespace BasicFacebookFeatures
             this.coverPictureBox.TabIndex = 57;
             this.coverPictureBox.TabStop = false;
             // 
+            // listBoxUserInfo
+            // 
+            this.listBoxUserInfo.Font = new System.Drawing.Font("Arial", 11F);
+            this.listBoxUserInfo.FormattingEnabled = true;
+            this.listBoxUserInfo.ItemHeight = 17;
+            this.listBoxUserInfo.Location = new System.Drawing.Point(8, 245);
+            this.listBoxUserInfo.Name = "listBoxUserInfo";
+            this.listBoxUserInfo.SelectionMode = System.Windows.Forms.SelectionMode.None;
+            this.listBoxUserInfo.Size = new System.Drawing.Size(260, 72);
+            this.listBoxUserInfo.TabIndex = 65;
+            // 
             // tabPageHigherLower
             // 
             this.tabPageHigherLower.BackColor = System.Drawing.SystemColors.Control;
             this.tabPageHigherLower.Controls.Add(this.panelMain);
+            this.tabPageHigherLower.ImageIndex = 2;
             this.tabPageHigherLower.Location = new System.Drawing.Point(4, 31);
             this.tabPageHigherLower.Name = "tabPageHigherLower";
             this.tabPageHigherLower.Padding = new System.Windows.Forms.Padding(3);
@@ -419,9 +615,9 @@ namespace BasicFacebookFeatures
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(850, 557);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.tabControl);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -432,9 +628,12 @@ namespace BasicFacebookFeatures
             this.Text = "Facebook DP Course";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Load += new System.EventHandler(this.FormMain_Load);
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.tabControl.ResumeLayout(false);
+            this.tabPageHome.ResumeLayout(false);
+            this.tabPageHome.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAlbums)).EndInit();
+            this.tabPageProfile.ResumeLayout(false);
+            this.tabPageProfile.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.profilePictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.coverPictureBox)).EndInit();
             this.tabPageHigherLower.ResumeLayout(false);
@@ -448,14 +647,23 @@ namespace BasicFacebookFeatures
 
         }
 
-		#endregion
-		private CustomTabControl tabControl1;
-		private System.Windows.Forms.TabPage tabPage1;
-		private System.Windows.Forms.TabPage tabPageHigherLower;
-        private System.Windows.Forms.PictureBox coverPictureBox;
-        private System.Windows.Forms.ImageList imageList1;
+        #endregion
         private RoundedButton buttonLogout;
-        private CircularPictureBox profilePictureBox;
+        private System.Windows.Forms.TabPage tabPageHigherLower;
+        private CustomTabControl tabControl;
+        private System.Windows.Forms.TabPage tabPageHome;
+        private ListBox listBoxAlbums;
+        private TextBox textBoxFillStatus;
+        private PictureBox pictureBoxAlbums;
+        private ImageList imageList1;
+        private CustomControls.RoundedButton buttonSubmitPost;
+        private ComboBox comboBoxSortingOptions;
+        private Label labelSortPosts;
+        private ListBox listBoxPosts;
+        private CustomControls.RoundedButton buttonFetchPosts;
+        private CustomControls.RoundedButton buttonFetchAlbums;
+        private TabPage tabPageProfile;
+        private System.Windows.Forms.PictureBox coverPictureBox;
         private System.Windows.Forms.Panel panelMain;
         private System.Windows.Forms.Label labelScore;
         private RoundedButton buttonNewGame;
@@ -472,8 +680,10 @@ namespace BasicFacebookFeatures
         private RoundedButton buttonHigherPage1;
         private System.Windows.Forms.Label labelPage1Likes;
         private RoundedLabel labelUserName;
+        private CircularPictureBox profilePictureBox;
         private System.Windows.Forms.ListBox listBoxUserInfo;
-        private System.Windows.Forms.TextBox textBoxUserInfo;
+        private ListBox listBoxFriendsList;
+        private TextBox textBoxSearchFriends;
     }
-}
+ }
 

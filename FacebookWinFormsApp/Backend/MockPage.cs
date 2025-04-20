@@ -1,7 +1,7 @@
 ﻿using System;
 using FacebookWrapper.ObjectModel;
 
-namespace BasicFacebookFeatures.Backend
+namespace FacebookDPApp.Backend
 {
     public class MockPage
     {
@@ -17,14 +17,6 @@ namespace BasicFacebookFeatures.Backend
             }
         }
 
-        public string Name
-        {
-            get
-            {
-                return r_OriginalPage.Name;
-            }
-        }
-
         public string Id
         {
             get
@@ -33,23 +25,14 @@ namespace BasicFacebookFeatures.Backend
             }
         }
 
-        public string PictureURL
-        {
-            get
-            {
-                return r_OriginalPage.PictureURL;
-            }
-        }
-
         public MockPage(Page i_OriginalPage)
         {
             r_OriginalPage = i_OriginalPage;
 
-            if (i_OriginalPage.LikesCount == null)
+            if(i_OriginalPage.LikesCount == null)
             {
                 r_FictionalLikesCount = sr_RandomLikesCount.Next(0, int.MaxValue);
-            }
-            else
+            } else
             {
                 r_FictionalLikesCount = (long)i_OriginalPage.LikesCount;
             }

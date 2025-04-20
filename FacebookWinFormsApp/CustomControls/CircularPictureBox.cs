@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-namespace BasicFacebookFeatures.CustomControls
+namespace FacebookDPApp.CustomControls
 {
     public class CircularPictureBox : PictureBox
     {
@@ -22,10 +22,7 @@ namespace BasicFacebookFeatures.CustomControls
 
         public int BorderSize
         {
-            get
-            {
-                return m_BorderSize;
-            }
+            get { return m_BorderSize; }
             set
             {
                 m_BorderSize = value;
@@ -35,10 +32,7 @@ namespace BasicFacebookFeatures.CustomControls
 
         public DashStyle BorderLineStyle
         {
-            get
-            {
-                return m_BorderLineStyle;
-            }
+            get { return m_BorderLineStyle; }
             set
             {
                 m_BorderLineStyle = value;
@@ -48,10 +42,7 @@ namespace BasicFacebookFeatures.CustomControls
 
         public DashCap BorderCapStyle
         {
-            get
-            {
-                return m_BorderCapStyle;
-            }
+            get { return m_BorderCapStyle; }
             set
             {
                 m_BorderCapStyle = value;
@@ -61,10 +52,7 @@ namespace BasicFacebookFeatures.CustomControls
 
         public float GradientAngle
         {
-            get
-            {
-                return m_GradientAngle;
-            }
+            get { return m_GradientAngle; }
             set
             {
                 m_GradientAngle = value;
@@ -74,10 +62,7 @@ namespace BasicFacebookFeatures.CustomControls
 
         public Color FirstBorderColor
         {
-            get
-            {
-                return m_FirstBorderColor;
-            }
+            get { return m_FirstBorderColor; }
             set
             {
                 m_FirstBorderColor = value;
@@ -87,10 +72,7 @@ namespace BasicFacebookFeatures.CustomControls
 
         public Color SecondBorderColor
         {
-            get
-            {
-                return m_SecondBorderColor;
-            }
+            get { return m_SecondBorderColor; }
             set
             {
                 m_SecondBorderColor = value;
@@ -127,7 +109,7 @@ namespace BasicFacebookFeatures.CustomControls
                 penBorder.DashStyle = BorderLineStyle;
                 penBorder.DashCap = BorderCapStyle;
                 pathRegion.AddEllipse(rectContourSmooth);
-                
+
                 this.Region = new Region(pathRegion);
 
                 graph.DrawEllipse(penSmooth, rectContourSmooth);
