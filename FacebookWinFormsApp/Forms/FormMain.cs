@@ -1,88 +1,206 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading;
+using System.Drawing;
 using System.Windows.Forms;
-using BasicFacebookFeatures.Backend;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
-using Message = FacebookWrapper.ObjectModel.Message;
+using System.Threading.Tasks;
+using System.Threading;
+using FacebookDPApp.Backend;
 
-// TODO: Remember to change to login and logout methods before submitting the project.
-// TODO: Use AppSettings to save some data if the user wants.
-// TODO: Save High Score to the xml file if the score the user got is higher than the current high score.
-// TODO: Go over the code of the game and see if it can be cleaned up.
-// TODO: Add confirmation to end the game if the user wants to leave the game page (whether if by closing the form or moving to a different tab).
-
-namespace BasicFacebookFeatures
+namespace FacebookDPApp.Forms
 {
     public partial class FormMain : Form
     {
-        private User m_LoggedInUser;
+        private const string k_TextBoxPostPlaceHolderText = "What's on your mind? Share your thoughts with the community!";
+        private const string k_TextBoxSearchFriendsPlaceHolderText = "Search Friends...";
+
+        private readonly User r_LoggedInUser;
+        private readonly List<MyPost> r_PostsList = new List<MyPost>();
+        private readonly AlbumSlideShow r_AlbumSlideShowManager;
         private HigherLowerGameManager m_GameManager;
         private UserDataManager m_UserDataManager;
-        private bool m_IsLoggingOut = false;
 
         public FormMain(User i_LoggedInUser)
         {
             InitializeComponent();
-            m_LoggedInUser = i_LoggedInUser;
+            r_LoggedInUser = i_LoggedInUser;
+
+            textBoxFillStatus.LostFocus += textBoxFillStatus_LostFocus;
 
             initUserDataManager();
-            // new Thread(getUserInfo).Start();
-            //getUserInfo();
+            r_AlbumSlideShowManager = new AlbumSlideShow(pictureBoxAlbums);
         }
 
         private void initUserDataManager()
         {
-            m_UserDataManager = new UserDataManager(m_LoggedInUser);
+            m_UserDataManager = new UserDataManager(r_LoggedInUser);
+
+            fetchFriends();
         }
 
-        private void getUserInfo()
+        private void fetchAlbums()
         {
-            labelUserName.Text = m_LoggedInUser.Name;
-            profilePictureBox.ImageLocation = m_UserDataManager.UserProfilePicURL;
-            coverPictureBox.ImageLocation = m_UserDataManager.UserCoverPicURL;
-
-            foreach (string userInfo in m_UserDataManager.UserInfo)
+            if (r_LoggedInUser.Albums != null)
             {
-                //listBoxUserInfo.Invoke(new Action(() => listBoxUserInfo.Items.Add(userInfo)));
-                listBoxUserInfo.Items.Add(userInfo);
+                listBoxAlbums.DisplayMember = "Name";
+                foreach (Album album in r_LoggedInUser.Albums)
+                {
+                    listBoxAlbums.Items.Add(album);
+                }
             }
-            //getCoverPhoto();
-            //getProfilePhoto();
         }
 
-        //private void getProfilePhoto()
-        //{
-        //    profilePictureBox.ImageLocation = m_LoggedInUser.PictureNormalURL;
-        //}
+        private void fetchPosts()
+        {
+            if (r_LoggedInUser.Posts.Count == 0)
+            {
+                MessageBox.Show("No Posts to load");
+            }
+            else
+            {
+                foreach (Post post in r_LoggedInUser.Posts)
+                {
+                    if (post.Message != null)
+                    {
+                        r_PostsList.Add(new MyPost(post.Message, post.CreatedTime ?? DateTime.Now));
+                    }
+                }
 
-        //private void getCoverPhoto()
-        //{
-        //    string coverPhotoURL = string.Empty;
+                listBoxPosts.DisplayMember = "Name";
+                updatePostList();
+            }
+        }
 
-        //    foreach (Album photoAlbum in m_LoggedInUser.Albums)
-        //    {
-        //        if (photoAlbum.Name == "Cover photos")
-        //        {
-        //            coverPhotoURL = photoAlbum.Photos[0].PictureNormalURL;
-        //        }
-        //    }
+        private void fetchFriends()
+        {
+            if (m_UserDataManager.UserFriends.Count == 0)
+            {
+                listBoxFriendsList.Items.Add("No friends found!");
 
-        //    coverPictureBox.ImageLocation = coverPhotoURL;
-        //}
+                return;
+            }
+
+            listBoxFriendsList.Items.Clear();
+
+            foreach (User friend in m_UserDataManager.UserFriends)
+            {
+                listBoxFriendsList.Items.Add(friend.Name);
+            }
+        }
+
+        private void updatePostList()
+        {
+            listBoxPosts.Items.Clear();
+
+            foreach (MyPost myPost in r_PostsList)
+            {
+                if (myPost.Message != null)
+                {
+                    listBoxPosts.Items.Add(myPost.Message);
+                }
+            }
+        }
 
         private void buttonLogout_Click(object sender, EventArgs e)
         {
-            m_IsLoggingOut = true;
             FacebookService.Logout();
+            // FacebookService.LogoutWithUI();
+            r_AlbumSlideShowManager.StopSlideshow();
+            pictureBoxAlbums.Visible = false;
             this.Invoke(new Action(this.Close));
         }
 
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        private async void listBoxAlbums_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedTab == tabPageHigherLower)
+            r_AlbumSlideShowManager.StopSlideshow();
+
+            if (listBoxAlbums.SelectedItem is Album selectedAlbum)
+            {
+                List<Photo> photos = await fetchPhotosFromSelectedAlbum(selectedAlbum);
+                r_AlbumSlideShowManager.StartSlideshow(photos);
+            }
+        }
+
+        private void textBoxFillStatus_Clicked(object sender, MouseEventArgs e)
+        {
+            if (textBoxFillStatus.Text == k_TextBoxPostPlaceHolderText)
+            {
+                textBoxFillStatus.Text = string.Empty;
+                textBoxFillStatus.ForeColor = Color.Black;
+            }
+        }
+
+        private void buttonSubmitPost_Click(object sender, EventArgs e)
+        {
+            string newPostText = textBoxFillStatus.Text.Trim();
+
+            if (string.IsNullOrEmpty(newPostText) || newPostText == k_TextBoxPostPlaceHolderText)
+            {
+                MessageBox.Show("Cannot add an empty post.");
+
+                return;
+            }
+
+            r_PostsList.Insert(0, new MyPost(newPostText, DateTime.Now));
+            updatePostList();
+            resetTextBoxFillStatusStyle();
+        }
+
+        private async Task<List<Photo>> fetchPhotosFromSelectedAlbum(Album i_SelectedAlbum)
+        {
+            List<Photo> photosUrl = new List<Photo>();
+
+            if (i_SelectedAlbum != null)
+            {
+                foreach (Photo photo in i_SelectedAlbum.Photos)
+                {
+                    photosUrl.Add(photo);
+                }
+            }
+
+            return photosUrl;
+        }
+
+        private void resetTextBoxFillStatusStyle()
+        {
+            textBoxFillStatus.Text = k_TextBoxPostPlaceHolderText;
+            textBoxFillStatus.ForeColor = SystemColors.ScrollBar;
+        }
+
+        private void comboBoxSortingOptions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            r_PostsList.Sort(new PostSorter(comboBoxSortingOptions.SelectedIndex));
+            updatePostList();
+        }
+
+        private void listBox_Leave(object sender, EventArgs e)
+        {
+            listBoxPosts.ClearSelected();
+        }
+
+        private void tabPageHome_MouseDown(object sender, MouseEventArgs e)
+        {
+            tabPageHome.Focus();
+        }
+
+        private void buttonFetchPosts_Click(object sender, EventArgs e)
+        {
+            fetchPosts();
+            buttonFetchPosts.Text = "Posts Fetched!";
+            buttonFetchPosts.Enabled = false;
+        }
+
+        private void buttonFetchAlbums_Click(object sender, EventArgs e)
+        {
+            fetchAlbums();
+            buttonFetchAlbums.Text = "Albums Fetched!";
+            buttonFetchAlbums.Enabled = false;
+        }
+
+        private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl.SelectedTab == tabPageHigherLower)
             {
                 if (m_GameManager == null)
                 {
@@ -100,23 +218,20 @@ namespace BasicFacebookFeatures
                         buttonHigherPage2,
                         buttonNewGame,
                         this,
-                        m_LoggedInUser);
+                        r_LoggedInUser);
                 }
 
                 m_GameManager.Initialize();
             }
             else
             {
-                m_GameManager.Cleanup();
+                m_GameManager?.Cleanup();
             }
         }
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (m_GameManager != null)
-            {
-                m_GameManager.Cleanup();
-            }
+            m_GameManager?.Cleanup();
         }
 
         private void FormMain_Load(object sender, EventArgs e)
@@ -131,17 +246,17 @@ namespace BasicFacebookFeatures
         {
             try
             {
-                string name = m_LoggedInUser.Name;
+                string name = r_LoggedInUser.Name;
                 string profilePicUrl = m_UserDataManager.UserProfilePicURL;
                 string coverPicUrl = m_UserDataManager.UserCoverPicURL;
-                List<string> UserInfoItems = new List<string>();
+                List<string> userInfoItems = new List<string>();
 
                 foreach (string info in m_UserDataManager.UserInfo)
                 {
-                    UserInfoItems.Add(info);
+                    userInfoItems.Add(info);
                 }
 
-                this.Invoke(new Action(() => updateUIWithUserData(name, profilePicUrl, coverPicUrl, UserInfoItems)));
+                this.Invoke(new Action(() => updateUIWithUserData(name, profilePicUrl, coverPicUrl, userInfoItems)));
             }
             catch (Exception ex)
             {
@@ -155,27 +270,73 @@ namespace BasicFacebookFeatures
             string i_CoverPicUrl,
             List<string> i_UserInfoItems)
         {
-            StringBuilder infoBuilder = new StringBuilder();
-
             labelUserName.Text = i_Name;
             profilePictureBox.ImageLocation = i_ProfilePicUrl;
             coverPictureBox.ImageLocation = i_CoverPicUrl;
 
-
             listBoxUserInfo.Items.Clear();
-            foreach(string userInfo in i_UserInfoItems)
+            foreach (string userInfo in i_UserInfoItems)
             {
-                //listBoxUserInfo.Invoke(new Action(() => listBoxUserInfo.Items.Add(userInfo)));
-                infoBuilder.AppendLine(userInfo);
                 listBoxUserInfo.Items.Add(userInfo);
             }
-
-            textBoxUserInfo.Text = infoBuilder.ToString();
         }
 
         private void handleDataLoadingError(string i_ErrorMessage)
         {
             MessageBox.Show($"Error loading user data {i_ErrorMessage}");
+        }
+
+        private void textBoxFillStatus_TextChanged(object sender, EventArgs e)
+        {
+            bool hasText = !string.IsNullOrWhiteSpace(textBoxFillStatus.Text)
+                           && textBoxFillStatus.Text != k_TextBoxPostPlaceHolderText;
+
+            buttonSubmitPost.Enabled = hasText;
+        }
+
+        private void textBoxFillStatus_LostFocus(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(textBoxFillStatus.Text))
+            {
+                resetTextBoxFillStatusStyle();
+            }
+        }
+
+        private void textBoxSearchFriends_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (textBoxSearchFriends.Text == k_TextBoxSearchFriendsPlaceHolderText)
+            {
+                textBoxSearchFriends.Text = string.Empty;
+                textBoxSearchFriends.ForeColor = Color.Black;
+            }
+        }
+
+        private void textBoxSearchFriends_TextChanged(object sender, EventArgs e)
+        {
+            listBoxFriendsList.Items.Clear();
+
+            foreach (User friend in m_UserDataManager.UserFriends)
+            {
+                if (friend.Name.StartsWith(textBoxSearchFriends.Text, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    listBoxFriendsList.Items.Add(friend.Name);
+                }
+            }
+
+            if (listBoxFriendsList.Items.Count == 0)
+            {
+                listBoxFriendsList.Items.Add("No match found!");
+            }
+        }
+
+        private void textBoxSearchFriends_Leave(object sender, EventArgs e)
+        {
+            if (textBoxSearchFriends.Text != k_TextBoxSearchFriendsPlaceHolderText)
+            {
+                textBoxSearchFriends.Text = k_TextBoxSearchFriendsPlaceHolderText;
+                textBoxSearchFriends.ForeColor = SystemColors.ScrollBar;
+                fetchFriends();
+            }
         }
     }
 }

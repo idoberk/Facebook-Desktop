@@ -3,16 +3,15 @@ using System.Drawing;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
-using System.Threading;
 
-namespace BasicFacebookFeatures.Forms
+namespace FacebookDPApp.Forms
 {
     public partial class FormLogin : Form
     {
         private const string k_AppID = "668236632596331";
         private static readonly string[] sr_AppPermissions =
             {
-                "public_profile", "email", "user_friends", "user_birthday", "user_posts", "user_link", "user_photos"
+                "public_profile", "email", "user_friends", "user_birthday", "user_posts", "user_gender", "user_photos", "user_age_range", "user_likes", "user_location", "user_hometown"
             };
         private LoginResult m_LoginResult;
         private User m_LoggedInUser;
@@ -42,9 +41,9 @@ namespace BasicFacebookFeatures.Forms
         {
             try
             {
-                m_LoginResult = FacebookWrapper.FacebookService.Connect(
-                    "EAAJfwfccn2sBOwN1OE1Gd3ueaWecQlZB59itvBmWVkTLYI79CEZBZAp9lq6xaAx7IVt1ZCgz2dp6ZAPb8EA0W3514f0WFu083uNKOSt40una1EqwAFw1dRw3NpYORo68UWoRMgZBQ7aWHI0Us9QeZAT0kLzElumZBFLXsUWCjg2O9s4OE3vBVlbrUL19nUtnKYvZBzZAuBFVTJejpqA2p55iObHDGk21q4");
-                // m_LoginResult = FacebookService.Login(textBoxAppID.Text, sr_AppPermissions);
+                m_LoginResult = FacebookService.Connect(
+                    "EAAJfwfccn2sBOZC2TMBKc0OQNi3vSeu87BZBvWe79k1g3TVqjfaPNvBnxoyAv46gCSjLaDAVHjVPXqvdGHXHChHZCSJZCs4w0tmCm1xqTpQeUtZCCwrtTOsvZC38dfvqseZBxU3pQBaln0Xgq20F9AepKijWivdKMMQR50uKLrgORFIaDOgRqslnQuuotE5OpiEQ1vIBAmMCKXKYkpd0wZDZD");
+                // m_LoginResult = FacebookService.Login(k_AppID, sr_AppPermissions);
 
                 if (!string.IsNullOrEmpty(m_LoginResult.AccessToken))
                 {
@@ -53,7 +52,6 @@ namespace BasicFacebookFeatures.Forms
                     this.Hide();
                     formMain.ShowDialog();
                     this.Show();
-                    // this.Invoke(new Action(this.Close));
                 }
                 else
                 {

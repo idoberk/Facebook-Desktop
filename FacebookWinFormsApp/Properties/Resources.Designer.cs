@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BasicFacebookFeatures.Properties {
+namespace FacebookDPApp.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace BasicFacebookFeatures.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BasicFacebookFeatures.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FacebookDPApp.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -73,9 +73,9 @@ namespace BasicFacebookFeatures.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap profile_icon {
+        internal static System.Drawing.Bitmap user_solid {
             get {
-                object obj = ResourceManager.GetObject("profile_icon", resourceCulture);
+                object obj = ResourceManager.GetObject("user_solid", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
-using BasicFacebookFeatures.Forms;
+using FacebookDPApp.Forms;
 using FacebookWrapper;
 
-namespace BasicFacebookFeatures
+namespace FacebookDPApp
 {
     static class Program
     {

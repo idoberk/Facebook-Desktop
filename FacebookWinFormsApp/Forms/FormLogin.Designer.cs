@@ -1,4 +1,6 @@
-﻿namespace BasicFacebookFeatures.Forms
+﻿using FacebookDPApp.CustomControls;
+
+namespace FacebookDPApp.Forms
 {
     partial class FormLogin
     {
@@ -29,7 +31,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormLogin));
-            this.buttonLogin = new BasicFacebookFeatures.CustomControls.RoundedButton();
+            this.buttonLogin = new RoundedButton();
             this.SuspendLayout();
             // 
             // buttonLogin

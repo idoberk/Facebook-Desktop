@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BasicFacebookFeatures.Backend
+namespace FacebookDPApp.Backend
 {
     public class GuessResultEventArgs : EventArgs
     {

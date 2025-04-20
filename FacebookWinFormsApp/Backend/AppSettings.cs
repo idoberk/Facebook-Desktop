@@ -1,8 +1,7 @@
 ﻿using System.IO;
 using System.Xml.Serialization;
 
-
-namespace BasicFacebookFeatures.Backend
+namespace FacebookDPApp.Backend
 {
     public sealed class AppSettings
     {
